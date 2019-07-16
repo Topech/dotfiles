@@ -1,0 +1,26 @@
+# i3 config file (v4)
+#
+# Made by no5a
+# 2019-06-20
+#
+##
+
+# Font
+font pango:monospace 10
+
+
+##----------------------------------------------------------------------------##
+## Globals
+
+# Mod Key
+set $mod Mod4
+
+# Directions
+set $up     k
+set $down   j
+set $left   h
+set $right  l
+
+
+##----------------------------------------------------------------------------##
+## 

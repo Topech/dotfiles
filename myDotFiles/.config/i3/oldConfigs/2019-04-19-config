@@ -1,0 +1,283 @@
+# i3 config file (v4)
+#
+# i3 Reference
+# https://i3wm.org/docs/userguide.html 
+#
+# i3 Gaps Ubuntu install guide
+# https://gist.github.com/boreycutts/6417980039760d9d9dac0dd2148d4783
+#
+# Made By no5a
+# 16-4-2019
+#
+# Some TODOs scattered about
+#
+# 
+##
+
+ 
+# Font
+font pango:monospace 10
+
+
+##----------------------------------------------------------------------------##
+## Globals
+# vars
+set $bgim /home/no5a/Pictures/backgrounds/tripleCircle/bigImage.png
+set $lock i3lock -bei
+set $term xfce4-terminal
+
+
+# Mod Keys
+set $win Mod4
+set $alt Mod1
+
+# Directions
+set $up     k
+set $down   j
+set $left	  h
+set $right  l
+
+
+##----------------------------------------------------------------------------##
+## Gaps
+for_window [class="^.*"] border pixel 2
+gaps inner 10
+gaps outer 5
+
+
+##----------------------------------------------------------------------------##
+## Desktop Use
+
+# Desktop setup
+exec_always compton
+exec_always feh --bg-scale $bgim
+
+
+# i3bar
+bar {
+	status_command i3status
+	position top
+}
+
+# Session Control
+bindsym $win+Delete exec $lock $bgim && sleep 0.25 && systemctl suspend
+
+bindsym $win+Shift+c reload
+bindsym $win+Shift+r restart
+#TODO: get this working asap
+#bindsym $Win+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+#TODO: get systemd-inhibit working for power button and change
+#	     /etc/systemd/logind.conf
+#      back to normal
+ 
+
+##--------------------------------------------------------------------------##
+## Window Control
+focus_wrapping no
+
+bindsym $win+w mode 'window'
+
+# Focus
+bindsym $win+$left  focus left
+bindsym $win+$down  focus down
+bindsym $win+$up    focus up
+bindsym $win+$right focus right
+
+bindsym $win+a focus parent
+bindsym $win+d focus child
+
+# Resize
+bindsym $win+Left   resize shrink width 5 px or 5 ppt
+bindsym $win+Down   resize grow height 5 px or 5 ppt
+bindsym $win+Up     resize shrink height 5 px or 5 ppt
+bindsym $win+Right  resize grow width 5 px or 5 ppt
+
+# Kill
+bindsym $win+q kill
+
+# Split Direction
+bindsym $win+b split v
+bindsym $win+n split h
+
+# Floating
+floating_modifier $win
+bindsym $win+Shift+space floating toggle
+bindsym $win+space       focus mode_toggle
+
+# Launching
+bindsym $win+Return    exec dmenu_run
+bindsym $alt+Control+t exec xfce4-terminal --drop-down
+bindsym $win+x         mode 'launch'
+
+# Fullscreen
+bindsym $win+f fullscreen toggle
+
+##---------------------------------------------------------------------------##
+## Hardware Keys
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% 
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% 
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle 
+
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+#TODO brightness
+#TODO display
+#TODO search
+
+
+##---------------------------------------------------------------------------##
+## workspaces
+bindsym $win+p mode 'populate'
+
+set $w1 "1: Util"
+set $w2 "2: Web"
+set $w3 "3: Social"
+set $w4 "4: Command"
+set $w5 "5: Files"
+set $w6 "6"
+set $w7 "7"
+set $w8 "8"
+set $w9 "9"
+set $w0 "0: Mus"
+
+# switch to workspace
+bindsym $win+1 workspace $w1
+bindsym $win+2 workspace $w2
+bindsym $win+3 workspace $w3
+bindsym $win+4 workspace $w4
+bindsym $win+5 workspace $w5
+bindsym $win+6 workspace $w6
+bindsym $win+7 workspace $w7
+bindsym $win+8 workspace $w8
+bindsym $win+9 workspace $w9
+bindsym $win+0 workspace $w0
+
+# app to workspace delegation
+assign [class="Signal"] $w3
+for_window [class="Spotify"] move to workspace $w0
+
+
+
+
+##---------------------------------------------------------------------------##
+## Modes
+
+# Launch
+	# binded to $win+x
+mode 'launch' {
+	bindsym Return exec dmenu_run
+	bindsym w      exec firefox
+	bindsym f      exec thunar
+	bindsym t      exec $term
+	bindsym m      exec signal-desktop
+	bindsym s      exec spotify
+
+
+	## Exit Mode
+	#bindsym $win+x mode 'launch'
+	bindsym $win+p mode 'populate'
+	bindsym $win+w mode 'window'
+	bindsym $win+x mode "default"
+	bindsym Escape mode "default"
+}
+
+# Populate
+	# binded to $win+$alt
+mode 'populate' {
+
+	#TODO: find out how to add vars into i3-msg 
+	set $w4L "/home/no5a/.i3/w4L.json"
+
+	# TODO: only work if 4 is empty, otherwise ask to killall and do
+	bindsym 4 exec --no-startup-id "i3-msg 'workspace 4: Command; append_layout /home/no5a/.i3/w4L.json'", exec $term --role='T 1', exec $term --role='T 2' -e 'bash -c "top && bash"', exec $term --role='T 3' -e 'bash -c "watch -n 1 sensors && bash"'
+
+	## Exit Mode
+	bindsym $win+x mode 'launch'
+	#bindsym $win+p mode 'populate'
+	bindsym $win+w mode 'window'
+	bindsym $win+$alt mode "default"
+	bindsym Escape mode "default"
+}
+
+# Window
+	#binded to $win+w
+mode 'window' {
+	# Focus
+	bindsym $left  focus left
+	bindsym $down  focus down
+	bindsym $up    focus up
+	bindsym $right focus right
+	
+	bindsym a focus parent
+	bindsym d focus child
+	
+	# Move
+	bindsym Shift+$left  move left
+	bindsym Shift+$down  move down
+	bindsym Shift+$up    move up
+	bindsym Shift+$right move right
+
+	bindsym s layout stacking
+	bindsym w layout tabbed
+	bindsym e layout toggle split
+
+	bindsym b split v
+	bindsym n split h
+
+	# move focused container to workspace
+	bindsym Shift+1 move container to workspace $w1
+	bindsym Shift+2 move container to workspace $w2
+	bindsym Shift+3 move container to workspace $w3
+	bindsym Shift+4 move container to workspace $w4
+	bindsym Shift+5 move container to workspace $w5
+	bindsym Shift+6 move container to workspace $w6
+	bindsym Shift+7 move container to workspace $w7
+	bindsym Shift+8 move container to workspace $w8
+	bindsym Shift+9 move container to workspace $w9
+	bindsym Shift+0 move container to workspace $w0
+
+	# move to workspace
+	bindsym 1 workspace $w1
+	bindsym 2 workspace $w2
+	bindsym 3 workspace $w3
+	bindsym 4 workspace $w4
+	bindsym 5 workspace $w5
+	bindsym 6 workspace $w6
+	bindsym 7 workspace $w7
+	bindsym 8 workspace $w8
+	bindsym 9 workspace $w9
+	bindsym 0 workspace $w0
+
+
+	# Resize
+	bindsym Left   resize shrink width 10 px or 10 ppt
+	bindsym Down   resize grow height 10 px or 10 ppt
+	bindsym Up     resize shrink height 10 px or 10 ppt
+	bindsym Right  resize grow width 10 px or 10 ppt
+	
+	# Kill
+	bindsym $win+q kill
+	
+	# Floating
+	#TODO: why this not work?	floating_modifier $win
+	bindsym Shift+space floating toggle
+	bindsym space focus mode_toggle
+	
+	# Launching
+	bindsym $win+Return exec dmenu_run
+
+	## Exit mode
+	bindsym $win+x mode 'launch'
+	bindsym $win+p mode 'populate'
+	#bindsym $win+w mode 'window'
+	bindsym $win+w mode "default"
+	bindsym Escape mode "default"
+}
+
+# EOF
+##---------------------------------------------------------------------------##
