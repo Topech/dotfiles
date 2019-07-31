@@ -2,15 +2,12 @@ set nocompatible
 set showcmd
 
 
-set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
-" set tabstop=2
-" set shiftwidth=2
+set tabstop=2 shiftwidth=2 
 
 set ruler
 set number relativenumber
 
 highlight LineNr ctermfg=grey
-" set hlsearch
 
 " syntax i think?
 syntax enable
@@ -27,6 +24,9 @@ set wildmenu
 " make a shortcut for netrw
 command F :Vex
 
+" TODO: only do this if .txt or .md etc
+" open current file in okular
+command V :!okular % & 
 
 " Set netrw to work pretty cooly
 let g:netrw_liststyle = 3
