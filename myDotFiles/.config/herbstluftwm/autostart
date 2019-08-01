@@ -86,6 +86,12 @@ hc mouseunbind --all
 hc mousebind $Mod-Button1 move
 hc mousebind $Mod-Button2 resize
 
+
+# Try max layout as default frame layout
+hc set default_frame_layout 2
+herbstclient load ${TAG_NAMES[0]} '(clients max:0)'
+
+
 ## Tags
 tagNames=( {1..9} 0 )
 tagKeys=( {1..9} 0 )
@@ -142,8 +148,6 @@ hc set smart_window_surroundings 0
 hc set smart_frame_surroundings 1
 hc set mouse_recenter_gap 0
 
-# Try max layout as default
-hc set default_frame_layout 2
 
 ### Rules
 # copy from default autostart file
