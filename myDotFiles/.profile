@@ -28,6 +28,6 @@ fi
 
 
 # swap capslock and esc
-/usr/bin/setxkbmap -option "caps:swapescape"
+#/usr/bin/setxkbmap -option "caps:swapescape"
 # swap alt and ctrl
 xmodmap "$HOME/.config/Xmodmap"

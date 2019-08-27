@@ -2,7 +2,7 @@ clear control
 clear mod1
 
 
-keycode 133 = Escape
+keycode 66 = Escape
 keycode 9 = Caps_Lock
 keycode 37 = Alt_L Meta_L
 keycode 64 = Control_L
