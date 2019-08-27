@@ -8,3 +8,5 @@ alias hc='herbstclient'
 alias wifigui='nm-connection-editor'
 alias pu='pushd'
 alias po='popd'
+
+mine="$HOME/mine"
