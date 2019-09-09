@@ -6,4 +6,5 @@ keycode 64 = Control_L
 add control = Control_L Control_R
 add mod1 = Alt_L Meta_L
 
-
+keycode 112 = 
+keycode 117 =
