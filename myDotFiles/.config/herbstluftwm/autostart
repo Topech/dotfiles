@@ -76,6 +76,7 @@ done
 ##----------------------------------------------------------------------------##
 ## Desktop setup
 # lemonbar setup
+hc pad 0 15 0 0
 ${hcHome}/barFeeder.sh | lemonbar -p &
 # Desktop image
 feh --bg-scale "$bgim"
@@ -97,6 +98,8 @@ oldPanel() {
 ## Rules
 ${hcHome}/modules/rules.sh
 
+
+swap_monitors_to_get_tag=0
 
 ##----------------------------------------------------------------------------##
 ##misc

@@ -67,3 +67,15 @@ hc mousebind $Mod-Button2 resize
 
 ## Layouts
 hc keybind $Mod-f floating toggle
+
+
+# Hardware Keys
+## Audio
+hc keybind XF86AudioRaiseVolume spawn pactl set-sink-volume 0 +5%
+hc keybind XF86AudioLowerVolume spawn pactl set-sink-volume 0 -5%
+hc keybind XF86AudioMute spawn pactl set-sink-mute 0 toggle
+
+## Media
+hc keybind XF86AudioPlay spawn playerctl play-pause
+hc keybind XF86AudioNext spawn playerctl next
+hc keybind XF86AudioPrev spawn playerctl previous

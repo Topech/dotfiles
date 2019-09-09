@@ -1,7 +1,7 @@
 #!/bin/bash
 
 clock() {
-	date +%I:%M:%S\ :\ %D
+	date +%I:%M:%S\ :\ %d-%m-%y
 }
 
 battery() {
