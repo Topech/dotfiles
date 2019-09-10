@@ -52,7 +52,7 @@ hc keybind $Mod-b cycle -1
 hc keybind $Mod-m fullscreen toggle
 
 # close client
-hc keybind $Mod-q close
+hc keybind $Mod-q close_or_remove
 
 # Move Client Between Frames
 hc keybind $Mod-Shift-h shift left

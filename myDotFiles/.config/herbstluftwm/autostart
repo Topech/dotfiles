@@ -39,16 +39,23 @@ hc lock
 
 
 ##----------------------------------------------------------------------------##
+## Rules
+${hcHome}/modules/rules.sh
+
+
+swap_monitors_to_get_tag=0
+
+##----------------------------------------------------------------------------##
 ## Theme
 ${hcHome}/modules/theme.sh 
 
 
-#----------------------------------------------------------------------------##
+##----------------------------------------------------------------------------##
 ## Keybinds
 ${hcHome}/modules/keybinds.sh "$Mod"
 
 
-###----------------------------------------------------------------------------##
+##----------------------------------------------------------------------------##
 ## WM behaviour
 
 hc set focus_follows_mouse 1
@@ -75,7 +82,8 @@ done
 
 ##----------------------------------------------------------------------------##
 ## Desktop setup
-# lemonbar setup
+
+# bar setup
 hc pad 0 15 0 0
 ${hcHome}/barFeeder.sh | lemonbar -p &
 # Desktop image
@@ -83,7 +91,7 @@ feh --bg-scale "$bgim"
 # Lock Screen
 hc keybind $Mod-Delete spawn ${hcHome}/modules/lock.sh "$bgim"
 
-# find the panel (OLD)
+# the panel (OLD)
 oldPanel() {
 	panel=~/.config/herbstluftwm/panel.sh
 	[ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
@@ -92,14 +100,7 @@ oldPanel() {
 			"$panel" $monitor &
 	done
 }
-
 #oldPanel
-##----------------------------------------------------------------------------##
-## Rules
-${hcHome}/modules/rules.sh
-
-
-swap_monitors_to_get_tag=0
 
 ##----------------------------------------------------------------------------##
 ##misc
