@@ -9,5 +9,6 @@ alias wifigui='nm-connection-editor'
 alias pu='pushd'
 alias po='popd'
 alias pls='sudo'
+alias spt='xfce4-terminal -e bash'
 
 mine="$HOME/mine"
