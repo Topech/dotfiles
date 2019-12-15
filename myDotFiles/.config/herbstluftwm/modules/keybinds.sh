@@ -53,6 +53,7 @@ hc keybind $Mod-m fullscreen toggle
 
 # close client
 hc keybind $Mod-q close_or_remove
+hc keybind XF86Launch1 spawn xkill
 
 # Move Client Between Frames
 hc keybind $Mod-Shift-h shift left
@@ -62,8 +63,8 @@ hc keybind $Mod-Shift-l shift right
 
 ## Mouse Control
 hc mouseunbind --all
-hc mousebind $Mod-Button1 move
-hc mousebind $Mod-Button2 resize
+hc mousebind $Mod-B1 move
+hc mousebind $Mod-B2 resize
 
 ## Layouts
 hc keybind $Mod-f floating toggle

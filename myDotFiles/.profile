@@ -31,3 +31,9 @@ fi
 /usr/bin/setxkbmap -option "caps:swapescape"
 # swap alt and ctrl
 xmodmap "$HOME/.config/Xmodmap"
+
+## sticky key setup
+# disable expiry
+xkbset exp -bell sticky -twokey latchlock -accessx -feedback -stickybeep led
+# set sticky key
+xkbset sticky latchlock -twokey 

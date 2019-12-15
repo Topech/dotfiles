@@ -2,11 +2,10 @@ set nocompatible
 set showcmd
 
 
-set tabstop=2 shiftwidth=2 
+set tabstop=4 shiftwidth=4 
 
 set ruler
 set number relativenumber
-
 highlight LineNr ctermfg=grey
 
 " syntax i think?

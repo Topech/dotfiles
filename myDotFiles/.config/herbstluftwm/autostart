@@ -4,14 +4,15 @@
 # Herbstluft config file
 # 
 # Created by Nightlamp
-# TODO: add audio buttons etc
 # TODO: migrate to sxhkd for keybindings
+# TODO: set a extra "monitor", overlay with all current monitors and use it for 
+#				floating
 
 
 ##----------------------------------------------------------------------------##
 ## Global Vars
 
-bgim='/home/no5a/Pictures/backgrounds/tripleCircle/bigImage1366.png'
+bgim='/home/no5a/Pictures/backgrounds/tripleCircle/bigImage.png'
 hcHome="${HOME}/.config/herbstluftwm"
 
 tagNames=( {1..9} 0 )
@@ -36,7 +37,6 @@ hc set tree_style '╾│ ├└╼─┐'
 
 # Locks screen while things are updated/initted
 hc lock
-
 
 ##----------------------------------------------------------------------------##
 ## Rules
@@ -84,6 +84,7 @@ done
 ## Desktop setup
 
 # bar setup
+killall lemonbar
 hc pad 0 15 0 0
 ${hcHome}/barFeeder.sh | lemonbar -p &
 # Desktop image
