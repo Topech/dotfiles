@@ -121,10 +121,6 @@ fi
 PATH="$PATH:$HOME/mine/myScripts"
 export PATH
 
-# Add neofetch at start
-clear
-neofetch
-
 
 # add vi mode to line editing
 set -o vi
