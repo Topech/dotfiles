@@ -1,0 +1,110 @@
+#!/bin/bash
+
+
+# Herbstluft config file
+# 
+# Created by Nightlamp
+# TODO: migrate to sxhkd for keybindings
+# TODO: set a extra "monitor", overlay with all current monitors and use it for 
+#				floating
+
+
+##----------------------------------------------------------------------------##
+# Global variable sourcing
+	source $HOME/.config/herbstluftwm/globals.sh
+
+##----------------------------------------------------------------------------##
+## Herbstluft init
+
+# reload all currently running herbstclients
+	hc emit_hook reload
+
+# set how trees are displayed
+	hc set tree_style '╾│ ├└╼─┐'
+
+# Locks screen while things are updated/initted
+	hc lock
+
+
+##----------------------------------------------------------------------------##
+## Rules
+	source ${hcModules}/rules.sh
+	swap_monitors_to_get_tag=0
+
+
+##----------------------------------------------------------------------------##
+## Theme
+	source ${hcModules}/theme.sh 
+
+
+##----------------------------------------------------------------------------##
+## Keybinds
+
+
+# set keybinds
+	hc keyunbind --all
+	source ${hcModules}/keybinds.sh 
+
+
+##----------------------------------------------------------------------------##
+## WM behaviour
+
+# make focus follow mouse
+	hc set focus_follows_mouse 1
+
+# max layout as default frame layout
+	hc set default_frame_layout 2
+	# reset first tag to max
+	herbstclient load ${TAG_NAMES[0]} '(clients max:0)'
+
+
+##----------------------------------------------------------------------------##
+## Tags
+
+# rename the default tag to the first tag in tag name
+
+# set tags to tagNames and keys to tagKeys
+	for i in ${!tagNames[@]} ; do
+		hc add "${tagNames[$i]}"
+		key="${tagKeys[$i]}"
+		if ! [ -z "$key" ] ; then
+			hc keybind "${Mod}-${key}" use_index "$i"
+			hc keybind "${Mod}-Shift-${key}" move_index "$i"
+		fi
+	done
+
+	hc merge_tag default 0
+
+
+##----------------------------------------------------------------------------##
+## Monitor/Desktop Setup
+
+# do multi monitor setup here, e.g.:
+# hc set_monitors 1280x1024+0+0 1280x1024+1280+0
+## simple version
+	hc detect_monitors
+
+# run monitor setup script on all monitors
+	 killall plank
+	 for MONITOR in $(herbstclient list_monitors | cut -d: -f1) ; do
+		source ${hcModules}/monitor_setup.sh $MONITOR
+		plank -n "d${MONITOR}" & 
+	 done
+
+# launch polybar
+$HOME/.config/polybar/launch.sh &
+
+# Desktop image
+	feh --bg-scale "$bgim"
+# Lock Screen
+	hc keybind $Mod-Delete spawn ${hcHome}/modules/lock.sh "$bgim"
+
+##----------------------------------------------------------------------------##
+## finalise
+
+# unlocks changes, stops ragged startup
+	hc unlock
+
+# compositor
+	killall compton
+	compton 

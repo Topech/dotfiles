@@ -1,0 +1,344 @@
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/polybar/polybar
+;
+;   The README contains a lot of information
+;
+;==========================================================
+
+[colors]
+bar_background = #1a1a1a
+bar_border = #000000
+
+text = #dfdfdf
+text_warn = #ff0000
+text_off = #444444
+
+underline = #00bfff
+underline_warn = #cc0000
+underline_off = #808080
+
+
+
+[bar/top]
+; what monitor
+	monitor = ${env:MONITOR:LVDS-1}
+
+; modules
+	modules-left =  menu
+	modules-center = date
+	modules-right =  pulseaudio wlan battery   
+
+; Bar Dimensions
+	width = 100%
+	height = 18
+	radius = 0.0
+	fixed-center = true
+
+; set colours
+	background = ${colors.bar_background}
+	foreground = ${colors.text}
+
+; underline settings
+	line-size = 2
+	line-color = ${colors.underline}
+
+; Border settings
+	border-size = 0
+	border-color = ${colors.bar_border}
+
+; padding between bar and monitor ends
+	padding-left = 3
+	padding-right = 3
+
+; space between modules
+	module-margin-left = 2
+	module-margin-right = 2
+
+; fonts
+	font-0 = fixed:pixelsize=9;antialias=true;1
+	font-1 = FontAwesome5Free:style=Solid:pixelsize=9:antialias=true;1
+	font-2 = FontAwesome5Brands:style=Solid:pixelsize=9:antialias=true;1
+	font-3 = DejaVuSansMono:style=Book:pixelsize=9;1
+
+; disable system tray 
+	tray-position = 
+
+; scrolling on bar
+;	scroll-up = i3wm-wsnext
+;	scroll-down = i3wm-wsprev
+
+
+
+
+; ----- TOP MODULES
+
+[module/wlan]
+	type = internal/network
+	interface = wlp3s0
+	interval = 1.0
+
+	format-connected = <label-connected>
+	format-connected-underline = ${colors.underline}
+	label-connected =  %essid% %signal:3%
+
+	format-disconnected = <label-disconnected>
+	format-disconnected-underline = ${colors.underline_off}
+	label-disconnected =  no wifi
+
+
+[module/date]
+	type = internal/date
+	interval = 0.5
+
+	date =
+	date-alt = "%Y-%m-%d  |  " 
+
+	time = %H:%M
+	time-alt = %H:%M:%S
+
+	format-underline = ${colors.underline}
+
+	label = %date%%time%
+
+
+[module/pulseaudio]
+	type = internal/pulseaudio
+
+	format-volume = <ramp-volume> <label-volume> 
+	format-volume-underline = ${colors.underline}
+	format-volume-font = 4
+	label-volume = " %percentage:3%%"
+	format-font = 3
+
+	label-muted =  mute
+	format-muted-underline = ${colors.underline_off}
+	format-muted-font = 4
+
+	ramp-volume-0 = " "
+	ramp-volume-1 = " "
+	ramp-volume-2 = 
+
+
+
+[module/battery]
+	type = internal/battery
+	battery = BAT0
+	adapter = AC
+	full-at = 98
+	poll-interval = 5
+
+	format-charging =<animation-charging> <label-charging>
+	format-charging-underline = ${colors.underline}
+	label-charging = "  %percentage:3%"
+	
+	format-discharging = <animation-discharging> <label-discharging>
+	format-discharging-underline = ${colors.underline_off}
+	label-discharging = "  %percentage:3%"
+	
+	format-full =  <label-full>
+	format-full-underline = ${colors.underline}
+	label-full =    %percentage%
+
+; Charging Animation
+	animation-charging-0 = 
+	animation-charging-1 = 
+	animation-charging-2 = 
+	animation-charging-3 = 
+;	Framerate in milliseconds
+	animation-charging-framerate = 750
+
+; Discharging Animation
+animation-discharging-0 = 
+animation-discharging-1 = 
+animation-discharging-2 = 
+animation-discharging-3 = 
+animation-discharging-4 = 
+; Framerate in milliseconds
+animation-discharging-framerate = 500	
+
+
+; my modules
+
+
+[module/menu]
+	type = custom/menu
+	expand-right = true
+	format = <label-toggle> <menu>
+	format-underline = ${colors.underline}
+	format-font = 4
+	format-prefix = ${env:USER:user} 
+
+	label-open =  "  "
+	label-close = "  "
+
+	menu-0-0 = 
+	menu-0-0-exec = xfce4-screenshooter
+	menu-0-1 = 
+	menu-0-1-exec = menu-open-1
+
+	menu-1-0 = 
+	menu-1-0-exec = systemctl suspend
+	menu-1-1 = 
+	menu-1-1-exec = systemctl reboot
+	menu-1-2 = 
+	menu-1-2-exec = systemctl poweroff
+
+	label-separator = "  "
+	format-separator-foreground = #444444
+
+
+
+
+
+; -------- Bottom Bar
+
+[bar/bottom]
+; what monitor
+	monitor = ${env:MONITOR:LVDS-1}
+
+; modules
+	modules-left = wifi_ip eth_ip
+	modules-center = 
+	modules-right = ram cpu temperature
+
+; Bar Dimensions
+	width = 100%
+	height = 18
+	radius = 0.0
+	fixed-center = true
+	bottom = true
+
+; set colours
+	background = ${colors.bar_background}
+	foreground = ${colors.text}
+
+; underline settings
+	line-size = 2
+	line-color = ${colors.underline}
+
+; Border settings
+	border-size = 0
+	border-color = ${colors.bar_border}
+
+; padding between bar and monitor ends
+	padding-left = 3
+	padding-right = 3
+
+; space between modules
+	module-margin-left = 2
+	module-margin-right = 2
+
+; fonts
+	font-0 = fixed:pixelsize=9;antialias=true;1
+	font-1 = FontAwesome5Free:style=Solid:pixelsize=9:antialias=true;1
+	font-2 = FontAwesome5Brands:style=Solid:pixelsize=9:antialias=true;3
+	font-3 = DejaVuSansMono:style=Book:pixelsize=9;1
+
+; disable system tray 
+	tray-position = 
+
+; scrolling on bar
+;	scroll-up = i3wm-wsnext
+;	scroll-down = i3wm-wsprev
+
+
+; ---- Bottom Modules
+
+[module/wifi_ip]
+	type = internal/network
+	interface = wlp3s0
+	interval = 1.0
+
+	format-connected = <label-connected>
+	format-disconected = <label-disconnected>
+	format-connected-underline = ${colors.underline}
+	format-disconnected-underline = ${colors.underline_off}
+
+	label-connected =  %local_ip%  
+	label-disconnected =  no Wifi
+
+
+[module/eth_ip]
+	type = internal/network
+	interface = enp0s25
+	interval = 1.0
+
+	format-prefix = 
+	format-connected = <label-connected>
+	format-disconected = <label-disconnected>
+	format-connected-underline = ${colors.underline}
+	format-disconnected-underline = ${colors.underline_off}
+
+	label-connected =  %local_ip%  
+	label-disconnected =  no Eth
+
+
+[module/cpu]
+	type = internal/cpu
+	interval = 1
+	format-underline = ${colors.underline}
+	format = <label> 
+	format-font = 4
+
+	label = "CPU  %percentage:3%%"
+
+; cpu usage bar
+;	bar-load-gradient = true
+;	bar-load-format = |%empty%%indicator%%fill%
+;	bar-load-width = 30
+;
+;	bar-load-fill = "█"
+;	bar-load-indicator = "█"
+;	bar-load-empty = "█"
+;	bar-load-empty-foreground = ${colors.background}
+
+
+[module/ram]
+	type = internal/memory
+	interval = 1
+	format-underline = ${colors.underline}
+	format = <label> 
+
+	label = "%percentage_used%% of %gb_total%"
+
+
+[module/temperature]
+	type = internal/temperature
+	thermal-zone = 0
+
+	format = <label>
+	format-underline = ${colors.underline}
+
+	warn-temperature = 86
+	format-warn = <label-warn>
+	format-warn-underline = ${colors.underline}
+	label =   %temperature-c%
+	label-warn =   %temperature-c%
+	label-warn-foreground = ${colors.underline}
+
+
+
+[settings]
+	screenchange-reload = true
+;	compositing-background = xor
+;	compositing-background = screen
+;	compositing-foreground = source
+;	compositing-border = over
+;	pseudo-transparency = false
+
+[global/wm]
+	margin-top = 5
+	margin-bottom = 5
+
+; vim:ft=dosini

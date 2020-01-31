@@ -1,17 +1,9 @@
 #!/bin/bash
 
-# shorten herbstclient to hc
-hc() {
-    herbstclient "$@"
-}
-
-
-# Win key as mod
-Mod="$1"
 
 ## WM Control Settings
 hc keybind $Mod-Shift-r reload
-hc keybind $Mod-Shift-Escape quit
+#hc keybind $Mod-Shift-Escape quit
 
 ## Program launching
 hc keybind $Mod-t spawn ${TERMINAL:-xfce4-terminal}

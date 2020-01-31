@@ -1,8 +1,4 @@
-# shorten herbstclient to hc
-hc() {
-    herbstclient "$@"
-}
-
+#!/bin/bash
 
 # copy from default autostart file
 # rules
@@ -16,8 +12,8 @@ hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on \
 label=dialogFocus
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off \
 label=desktopLeaveAlone
-hc rule windowRole='xfce4-terminal-dropdown' manage=off
+#hc rule windowRole='xfce4-terminal-dropdown' manage=off
 
 
-##TODO: preset tags for apps
+##TODO: force apps to a certain tag
 #hc rule class=XTerm tag=3 # move all xterms to tag 3
