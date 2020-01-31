@@ -35,4 +35,4 @@ let g:netrw_winsize = 25
 let g:netrw_altv = 1
 
 
-
+set mouse=a

@@ -1,1 +1,0 @@
-/home/no5a/mine/dev/dotfiles/myDotFiles/.config/herbstluftwm/barFeeder.sh
