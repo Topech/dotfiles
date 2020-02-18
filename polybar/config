@@ -21,11 +21,11 @@ bar_background = #1a1a1a
 bar_border = #000000
 
 text = #dfdfdf
-text_warn = #ff0000
+text_warn = #ff5555
 text_off = #444444
 
-underline = #00bfff
-underline_warn = #cc0000
+underline = #3366ff
+underline_warn = #ff5555
 underline_off = #808080
 
 
@@ -218,6 +218,7 @@ animation-discharging-framerate = 500
 	radius = 0.0
 	fixed-center = true
 	bottom = true
+	offset-y = 3
 
 ; set colours
 	background = ${colors.bar_background}
@@ -240,10 +241,10 @@ animation-discharging-framerate = 500
 	module-margin-right = 2
 
 ; fonts
-	font-0 = fixed:pixelsize=9;antialias=true;1
-	font-1 = FontAwesome5Free:style=Solid:pixelsize=9:antialias=true;1
-	font-2 = FontAwesome5Brands:style=Solid:pixelsize=9:antialias=true;3
-	font-3 = DejaVuSansMono:style=Book:pixelsize=9;1
+	font-0 = fixed:pixelsize=8.5;antialias=true;1
+	font-1 = FontAwesome5Free:style=Solid:pixelsize=8:antialias=true;1
+	font-2 = FontAwesome5Brands:style=Solid:pixelsize=8:antialias=true;3
+	font-3 = DejaVuSansMono:style=Book:pixelsize=8.5;1
 
 ; disable system tray 
 	tray-position = 
@@ -291,7 +292,7 @@ animation-discharging-framerate = 500
 	format = <label> 
 	format-font = 4
 
-	label = "CPU  %percentage:3%%"
+	label = "CPU %percentage:3%%"
 
 ; cpu usage bar
 ;	bar-load-gradient = true
@@ -322,10 +323,10 @@ animation-discharging-framerate = 500
 
 	warn-temperature = 86
 	format-warn = <label-warn>
-	format-warn-underline = ${colors.underline}
+	format-warn-underline = ${colors.underline_warn}
 	label =   %temperature-c%
 	label-warn =   %temperature-c%
-	label-warn-foreground = ${colors.underline}
+;	label-warn-foreground = ${colors.text_warn}
 
 
 
