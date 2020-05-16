@@ -30,10 +30,15 @@ fi
 # swap capslock and esc
 /usr/bin/setxkbmap -option "caps:swapescape"
 # swap alt and ctrl
-xmodmap "$HOME/.config/Xmodmap"
+#xmodmap "$HOME/.config/Xmodmap"
 
 ## sticky key setup
 # disable expiry
-xkbset exp -bell sticky -twokey latchlock -accessx -feedback -stickybeep led
+#xkbset exp -bell sticky -twokey latchlock -accessx -feedback -stickybeep led
 # set sticky key
-xkbset sticky -twokey 
+#xkbset sticky -twokey 
+
+
+## Set Environment vars
+export EDITOR=/usr/bin/vi -e
+export VISUAL=/usr/bin/vim
