@@ -24,9 +24,9 @@ text = #dfdfdf
 text_warn = #ff5555
 text_off = #444444
 
-underline = #3366ff
+underline = #ff3300
 underline_warn = #ff5555
-underline_off = #808080
+underline_off = #331a00
 
 
 

@@ -4,8 +4,8 @@
 hc attr theme.tiling.reset 1
 hc attr theme.floating.reset 1
 
-focusColor='#e47200'  # yellowish
-normalColor='#4e0027' # dark red
+focusColor='#cc3300'  # mellow red
+normalColor='#661a00' # greenish brown
 
 # Frame Theming
 hc set frame_border_active_color $focusColor
