@@ -1,6 +1,7 @@
 set nocompatible
 set showcmd
 
+colorscheme slate
 
 set tabstop=4 shiftwidth=4 
 
@@ -27,6 +28,7 @@ command F :Vex
 " open current file in okular
 command V :!okular % & 
 
+"
 " Set netrw to work pretty cooly
 let g:netrw_liststyle = 3
 let g:netrw_banner = 0

@@ -40,5 +40,5 @@ fi
 
 
 ## Set Environment vars
-export EDITOR=/usr/bin/vi -e
-export VISUAL=/usr/bin/vim
+export EDITOR='/usr/bin/vi -e'
+export VISUAL='/usr/bin/vim'
