@@ -1,4 +1,5 @@
 # My dotfiles
-these are my dotfiles i guess
+these are my dotfiles.
 
-use my dotlink to link the dots to your system lol
+You can run lndotfiles.sh to automatically create soft links in the right 
+places, making setup easier. Note that there are no checks for permissions.
