@@ -2,9 +2,12 @@
 
 
 # install programs
-echo "----- installs  -----"
-sudo apt install git vim plank ssh zsh
+echo "----- desktop ubuntu installs  -----"
+sudo apt install git vim ssh zsh xkbset neovim
 sudo snap install spotify bitwarden
+
+echo "----- herbstluftwm installs  -----"
+sudo apt install plank xfce4-terminal dmenu feh arandr
 
 # install source programs
 ## TODO: Create directory for 
@@ -26,5 +29,5 @@ fi
 
 # Reminders
 echo "----- reminders  -----"
-echo " * set up uServ in /etc/hosts and ssh key"
+echo " * set up factory in /etc/hosts and ssh key"
 echo " * source .profile and other files"
