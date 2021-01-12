@@ -1,13 +1,21 @@
 #!/bin/bash
 
 
+
+# set up directories
+echo "----- create directories -----"
+mkdir -p "$HOME/Developer/repos" "$HOME/3dPrints"
+
 # install programs
-echo "----- desktop ubuntu installs  -----"
+echo "----- ubuntu generic installs  -----"
 sudo apt install git vim ssh zsh xkbset neovim
+
+echo "----- ubuntu desktop installs  -----"
+sudo apt install terminology
 sudo snap install spotify bitwarden
 
 echo "----- herbstluftwm installs  -----"
-sudo apt install plank xfce4-terminal dmenu feh arandr
+sudo apt install plank xfce4-terminal dmenu feh arandr compton polybar
 
 # install source programs
 ## TODO: Create directory for 
