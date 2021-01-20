@@ -12,7 +12,7 @@ function alreadyLinked() {
 
 function pathTaken() {
 	FILE=$1
-	[ -f $FILE -a ! -h $FILE ]
+	[ [ -f $FILE -o -d $FILE ] -a ! -h $FILE ]
 }
 
 # NOTE: does not check permissions
@@ -52,5 +52,5 @@ linkDotfiles "$TARGET_DIR" "$DOTFILES"
 
 
 TARGET_DIR="$HOME/.config"
-DOTFILES="herbstluftwm i3 plank polybar Xmodmap"
+DOTFILES="herbstluftwm Xmodmap compton"
 linkDotfiles "$TARGET_DIR" "$DOTFILES"
