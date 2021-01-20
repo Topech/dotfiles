@@ -52,5 +52,5 @@ linkDotfiles "$TARGET_DIR" "$DOTFILES"
 
 
 TARGET_DIR="$HOME/.config"
-DOTFILES="herbstluftwm Xmodmap compton"
+DOTFILES="herbstluftwm Xmodmap"
 linkDotfiles "$TARGET_DIR" "$DOTFILES"
