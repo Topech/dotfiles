@@ -51,6 +51,7 @@ git config --global alias.l 'log --oneline'
 git config --global alias.ll 'log'
 git config --global alias.lf 'log --oneline --names-only'
 git config --global alias.g 'log --graph --oneline'
+git config --global alias.ga 'log --graph --oneline --all'
 
 # Reminders
 echo "----- reminders  -----"
