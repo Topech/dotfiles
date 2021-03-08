@@ -1,21 +1,43 @@
 #!/bin/bash
 
+trap 'exit 130' INT
 
+
+OS=$(./src/detectOperatingSystem.sh)
+echo "Detected $OS!"
+
+case "$OS" in
+	"Fedora")
+		CLI_PKG_MAN='dnf'
+		;;
+	"Ubuntu")
+		CLI_PKG_MAN='apt'
+		sudo apt install flatpak
+		;;
+	"Mac")
+		CLI_PKG_MAN='brew'
+		;;
+esac
 
 # set up directories
 echo "----- create directories -----"
 mkdir -p "$HOME/Developer/repos" "$HOME/3dPrints"
 
+
+
+
 # install programs
-echo "----- ubuntu generic installs  -----"
-sudo apt install git vim ssh zsh xkbset neovim
+echo "----- cli installs  -----"
+sudo "$CLI_PKG_MAN" install git vim ssh zsh xkbset neovim
 
-echo "----- ubuntu desktop installs  -----"
-sudo apt install terminology
-sudo snap install spotify bitwarden
+if [ "$OS" != "Mac" ]; then
+	echo "----- desktop installs -----"
+	flatpak install flathub com.bitwarden.desktop
+	flatpak install flathub com.visualstudio.code
 
-echo "----- herbstluftwm installs  -----"
-sudo apt install plank xfce4-terminal dmenu feh arandr compton i3lock
+	echo "----- herbstluftwm installs  -----"
+	sudo "$CLI_PKG_MAN" dnf install plank xfce4-terminal dmenu feh arandr compton i3lock
+fi
 
 # install source programs
 ## TODO: Create directory for 
@@ -23,8 +45,8 @@ sudo apt install plank xfce4-terminal dmenu feh arandr compton i3lock
 
 # configure dotfiles into system
 echo "----- dotfiles  -----"
-chmod +x lndotfiles.sh
-./lndotfiles.sh
+chmod +x src/lndotfiles.sh
+./src/lndotfiles.sh
 
 # ssh keygen
 echo "----- ssh-keygen  -----"
