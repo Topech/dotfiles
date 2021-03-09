@@ -34,6 +34,7 @@ if [ "$OS" != "Mac" ]; then
 	echo "----- desktop installs -----"
 	flatpak install flathub com.bitwarden.desktop
 	flatpak install flathub com.visualstudio.code
+	flatpak install flathub org.signal.Signal
 
 	echo "----- herbstluftwm installs  -----"
 	sudo "$CLI_PKG_MAN" dnf install plank xfce4-terminal dmenu feh arandr compton i3lock
