@@ -9,6 +9,11 @@ echo "Detected $OS!"
 case "$OS" in
 	"Fedora")
 		CLI_PKG_MAN='dnf'
+		sudo dnf install tlp tlp-rdw powertop
+		for serv in tlp tlp powertop; do
+			sudo systemctl start "$serv.service"
+			sudo systemctl enable "$serv.service"
+		done
 		;;
 	"Ubuntu")
 		CLI_PKG_MAN='apt'
