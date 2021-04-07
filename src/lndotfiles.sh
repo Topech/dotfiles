@@ -52,5 +52,5 @@ linkDotfiles "$TARGET_DIR" "$DOTFILES"
 
 
 TARGET_DIR="$HOME/.config"
-DOTFILES="herbstluftwm Xmodmap"
+DOTFILES="herbstluftwm Xmodmap nvim/init.vim"
 linkDotfiles "$TARGET_DIR" "$DOTFILES"
