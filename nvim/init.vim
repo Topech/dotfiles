@@ -44,6 +44,10 @@ set autoindent
 "set smartindent
 
 
+"" --- Split Options
+set splitbelow
+set splitright
+
 "" --- Search Options
 " unhighlight by pressing esc
 nnoremap <esc> :noh<return><esc>
@@ -64,11 +68,71 @@ highlight CursorLineNr ctermfg=white
 
 
 "" --- Keybinds:
+
 " set space to leader
 nnoremap <SPACE> <Nop>
 map <Space> <Leader>
 
+"saving
+nnoremap <leader>s :<C-u>w<CR>
+nnoremap <leader>S :<C-u>wa<CR>
+
 " insert line, staying in normal mode
 nnoremap <silent> <leader>o :<C-u>call append(line("."),   repeat([""], v:count1))<CR>
 nnoremap <silent> <leader>O :<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>
+
+" Window keybinds
+" window control
+nnoremap <silent> <leader>wc :<C-u>close<CR>
+nnoremap <silent> <leader>wo :<C-u>only<CR>
+nnoremap <silent> <leader>wp :<C-u>wincmd p<CR>
+
+" New split
+nnoremap <silent> <leader>snh :<C-u>new<CR>
+nnoremap <silent> <leader>snv :<C-u>vnew<CR>
+
+" New tab
+nnoremap <silent> <leader>tN :<C-u>tabnew<CR>
+nnoremap <silent> <leader>tnh :<C-u>-tabnew<CR>
+nnoremap <silent> <leader>tnl :<C-u>tabnew<CR>
+nnoremap <silent> <leader>tnH :<C-u>0tabnew<CR>
+nnoremap <silent> <leader>tnL :<C-u>$tabnew<CR>
+
+" Move between splits
+nnoremap <silent> <leader>sh :<C-u>wincmd h<CR>
+nnoremap <silent> <leader>sj :<C-u>wincmd j<CR>
+nnoremap <silent> <leader>sk :<C-u>wincmd k<CR>
+nnoremap <silent> <leader>sl :<C-u>wincmd l<CR>
+
+" Move between tabs
+nnoremap <silent> <leader>th :<C-u>tabprevious<CR>
+nnoremap <silent> <leader>tl :<C-u>tabnext<CR>
+nnoremap <silent> <leader>t0 :<C-u>tabfirst<CR>
+nnoremap <silent> <leader>t$ :<C-u>tablast<CR>
+nnoremap <silent> <leader>tL :<C-u>tabmove -1<CR>
+nnoremap <silent> <leader>tH :<C-u>tabmove +1<CR>
+
+" split manipulation
+nnoremap <silent> <leader>sr :<C-u>wincmd r<CR>
+nnoremap <silent> <leader>sR :<C-u>wincmd R<CR>
+nnoremap <silent> <leader>sx :<C-u>wincmd x<CR>
+nnoremap <silent> <leader>sH :<C-u>wincmd H<CR>
+nnoremap <silent> <leader>sJ :<C-u>wincmd J<CR>
+nnoremap <silent> <leader>sK :<C-u>wincmd K<CR>
+nnoremap <silent> <leader>sL :<C-u>wincmd L<CR>
+" nnoremap <silent> <leader>wT :<C-u>wincmd T<CR>
+
+" tab manipulation
+nnoremap <silent> <leader>tc :<C-u>tabclose<CR>
+nnoremap <silent> <leader>to :<C-u>tabonly<CR>
+nnoremap <silent> <leader>tp :<C-u>tabrewind<CR>
+
+" split resizing
+nnoremap <silent> <leader>s= <C-w>=
+nnoremap <silent> <leader>s- <C-w>-
+nnoremap <silent> <leader>s+ <C-w>+
+nnoremap <silent> <leader>s_ :<C-u>resize<CR>
+nnoremap <silent> <leader>s< <C-w><
+nnoremap <silent> <leader>s> <C-w>>
+nnoremap <silent> <leader>s<W-bar> :<C-u>vertical-resize<CR>
 
