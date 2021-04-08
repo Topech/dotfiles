@@ -78,8 +78,8 @@ nnoremap <leader>s :<C-u>w<CR>
 nnoremap <leader>S :<C-u>wa<CR>
 
 " insert line, staying in normal mode
-nnoremap <silent> <leader>o :<C-u>call append(line("."),   repeat([""], v:count1))<CR>
-nnoremap <silent> <leader>O :<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>
+nnoremap <expr> <leader>o ':<C-u>call append(line("."), repeat([""], v:count1))<CR>' . v:count1 . 'j'
+nnoremap <expr> <leader>O ':<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>' . v:count1 . 'k'
 
 " Window keybinds
 " window control
