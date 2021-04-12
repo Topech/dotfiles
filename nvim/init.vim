@@ -71,15 +71,17 @@ highlight CursorLineNr ctermfg=white
 
 " set space to leader
 nnoremap <SPACE> <Nop>
-map <Space> <Leader>
+map <Space> <leader>
 
 "saving
 nnoremap <leader>s :<C-u>w<CR>
 nnoremap <leader>S :<C-u>wa<CR>
 
 " insert line, staying in normal mode
-nnoremap <expr> <leader>o ':<C-u>call append(line("."), repeat([""], v:count1))<CR>' . v:count1 . 'j'
-nnoremap <expr> <leader>O ':<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>' . v:count1 . 'k'
+nnoremap <silent> <expr> <leader>o ':<C-u>call append(line("."), repeat([""], v:count1))<CR>' . v:count1 . 'j'
+nnoremap <silent> <expr> <leader>O ':<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>' . v:count1 . 'k'
+nnoremap <silent> <leader><leader>o :<C-u>call append(line("."), repeat([""], v:count1))<CR>
+nnoremap <silent> <leader><leader>O :<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>
 
 " Window keybinds
 " window control
