@@ -18,6 +18,8 @@ case "$OS" in
 	"Ubuntu")
 		CLI_PKG_MAN='apt'
 		sudo apt install flatpak
+		sudo apt install gnome-software-plugin-flatpak
+		flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 		;;
 	"Mac")
 		CLI_PKG_MAN='brew'
@@ -37,9 +39,11 @@ sudo "$CLI_PKG_MAN" install git vim ssh zsh xkbset neovim
 
 if [ "$OS" != "Mac" ]; then
 	echo "----- desktop installs -----"
-	flatpak install flathub com.bitwarden.desktop
-	flatpak install flathub com.visualstudio.code
-	flatpak install flathub org.signal.Signal
+	#flatpak install flathub com.bitwarden.desktop -y
+	#flatpak install flathub com.visualstudio.code -y
+	#flatpak install flathub org.signal.Signal -y
+	#flatpak install flathub com.spotify.Client -y
+	flatpak install flathub com.bitwarden.desktop com.visualstudio.code org.signal.Signal com.spotify.Client -y
 
 	echo "----- herbstluftwm installs  -----"
 	sudo "$CLI_PKG_MAN" dnf install plank xfce4-terminal dmenu feh arandr compton i3lock
