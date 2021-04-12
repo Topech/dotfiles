@@ -16,7 +16,7 @@ elif [ -f /etc/debian_version ]; then
     # Older Debian/Ubuntu/etc.
     OS=Debian
     #VER=$(cat /etc/debian_version)
-elif [ "$OSTYPE" == "darwin" ]; then
+elif [[ "$OSTYPE" == "darwin"* ]]; then
 	OS=Mac
 fi
 

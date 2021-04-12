@@ -7,6 +7,7 @@ alias wifigui='nm-connection-editor'
 alias pu='pushd'
 alias po='popd'
 alias pls='sudo'
-alias nv='nvim'
+alias ogvim=$(whereis vim)
+alias vim='nvim'
 
 mine="$HOME/mine"

@@ -46,12 +46,33 @@ if [ "$OS" != "Mac" ]; then
 	flatpak install flathub com.bitwarden.desktop com.visualstudio.code org.signal.Signal com.spotify.Client -y
 
 	echo "----- herbstluftwm installs  -----"
-	sudo "$CLI_PKG_MAN" dnf install plank xfce4-terminal dmenu feh arandr compton i3lock
+	sudo "$CLI_PKG_MAN" install plank xfce4-terminal dmenu feh arandr compton i3lock
 fi
 
 # install source programs
 ## TODO: Create directory for 
 # - polybar
+
+# Set Up Neovim
+echo "---- set up neovim ---"
+NVIM_DIR="$HOME/.config/nvim"
+if [ ! -d  "$NVIM_DIR" ] ; then
+    echo "No Neovim config folder detected. Making now..."
+    mkdir "$NVIM_DIR"
+    # install vim-plug for neovim
+    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+    # install vim-openscad
+    git clone https://github.com/sirtaj/vim-openscad.git "$HOME/Developer/repos/"
+    SUBDIRS="syntax ftplugin ftdetect"
+    for S in $SUBDIRS; do
+        mkdir "$NVIM_DIR/$S";
+        # link all openscad files from git
+        ln -s "$HOME/Developer/repos/vim-openscad/$S/openscad.vim" "$NVIM_DIR/$S/openscad.vim";
+    done;
+
+fi
 
 # configure dotfiles into system
 echo "----- dotfiles  -----"
