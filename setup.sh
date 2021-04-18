@@ -99,6 +99,8 @@ git config --global user.email "$GIT_EMAIL"
 
 git config --global core.editor "nvim"
 
+git config --global init.defaultBranch 'main'
+
 git config --global alias.s 'status'
 git config --global alias.l 'log --oneline'
 git config --global alias.ll 'log'
