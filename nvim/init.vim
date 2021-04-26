@@ -70,8 +70,7 @@ highlight CursorLineNr ctermfg=white
 "" --- Keybinds:
 
 " set space to leader
-nnoremap <SPACE> <Nop>
-map <Space> <leader>
+let mapleader = "\<Space>"
 
 "saving
 nnoremap <leader>s :<C-u>w<CR>
