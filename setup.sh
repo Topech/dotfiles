@@ -39,10 +39,6 @@ sudo "$CLI_PKG_MAN" install git vim ssh zsh xkbset neovim
 
 if [ "$OS" != "Mac" ]; then
 	echo "----- desktop installs -----"
-	#flatpak install flathub com.bitwarden.desktop -y
-	#flatpak install flathub com.visualstudio.code -y
-	#flatpak install flathub org.signal.Signal -y
-	#flatpak install flathub com.spotify.Client -y
 	flatpak install flathub com.bitwarden.desktop com.visualstudio.code org.signal.Signal com.spotify.Client -y
 
 	echo "----- herbstluftwm installs  -----"
@@ -72,6 +68,7 @@ if [ ! -d  "$NVIM_DIR" ] ; then
         ln -s "$HOME/Developer/repos/vim-openscad/$S/openscad.vim" "$NVIM_DIR/$S/openscad.vim";
     done;
 
+    nvim +'PlugInstall' +qa --headless
 fi
 
 # configure dotfiles into system
