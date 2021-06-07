@@ -102,8 +102,8 @@ git config --global alias.s 'status'
 git config --global alias.l 'log --oneline'
 git config --global alias.ll 'log'
 git config --global alias.lf 'log --oneline --names-only'
-git config --global alias.g 'log --graph --oneline'
-git config --global alias.ga 'log --graph --oneline --all'
+git config --global alias.g "log  --graph  '--pretty=format:%C(auto)%h <%aN> %d %C(dim normal)(%cr)%Creset%n %s%n'"
+git config --global alias.ga 'g --all'
 
 # Reminders
 echo "----- reminders  -----"
