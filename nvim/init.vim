@@ -75,6 +75,10 @@ highlight CursorLineNr ctermfg=white
 
 
 "" --- Keybinds:
+set timeoutlen=5000
+
+" easy escape
+" inoremap ;; <Esc>
 
 " set space to leader
 let mapleader = "\<Space>"
@@ -147,10 +151,44 @@ nnoremap <silent> <leader>s<W-bar> :<C-u>vertical-resize<CR>
 
 
 "" --- emmet-vim keybinds
-" emmet only use in normal and use leader
-let g:user_emmet_mode = 'n'
-let g:user_emmet_leader_key = "<leader>e"
+" Emmet-vim  key  overrides
+" imap <leader>e, <plug>(emmet-expand-abbr)
+nmap <leader>e, <plug>(emmet-expand-abbr)
+xmap <leader>e, <plug>(emmet-expand-abbr)
+" " imap <leader>e; <plug>(emmet-expand-word)
+nmap <leader>e; <plug>(emmet-expand-word)
+" imap <leader>eu <plug>(emmet-update-tag)
+nmap <leader>eu <plug>(emmet-update-tag)
+" imap <leader>ed <plug>(emmet-balance-tag-inward)
+nmap <leader>ed <plug>(emmet-balance-tag-inward)
+xmap <leader>ed <plug>(emmet-balance-tag-inward)
+" imap <leader>eD <plug>(emmet-balance-tag-outword)
+nmap <leader>eD <plug>(emmet-balance-tag-outword)
+xmap <leader>eD <plug>(emmet-balance-tag-outword)
+" imap <leader>en <plug>(emmet-move-next)
+nmap <leader>en <plug>(emmet-move-next)
+" imap <leader>eN <plug>(emmet-move-prev)
+nmap <leader>eN <plug>(emmet-move-prev)
+" imap <leader>ei <plug>(emmet-image-size)
+nmap <leader>ei <plug>(emmet-image-size)
+" imap <leader>eI <plug>(emmet-image-encode)
+nmap <leader>eI <plug>(emmet-image-encode)
+" imap <leader>e/ <plug>(emmet-toggle-comment)
+nmap <leader>e/ <plug>(emmet-toggle-comment)
+" imap <leader>ej <plug>(emmet-split-join-tag)
+nmap <leader>ej <plug>(emmet-split-join-tag)
+" imap <leader>ek <plug>(emmet-remove-tag)
+nmap <leader>ek <plug>(emmet-remove-tag)
+" imap <leader>ea <plug>(emmet-anchorize-url)
+nmap <leader>ea <plug>(emmet-anchorize-url)
+" imap <leader>eA <plug>(emmet-anchorize-summary)
+nmap <leader>eA <plug>(emmet-anchorize-summary)
+" imap <leader>em <plug>(emmet-merge-lines)
+xmap <leader>em <plug>(emmet-merge-lines)
+xmap <leader>ec <plug>(emmet-code-pretty)
 
+" moves to end of line then expands emmet abbreviation.
+" (end of line needed to expand whole abbreviation)
 nmap <leader>ee g_<plug>(emmet-expand-abbr)
 
 "" --- vim-surround keybinds
