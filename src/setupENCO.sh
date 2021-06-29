@@ -12,11 +12,13 @@ fi
 
 OS=$(./detectOperatingSystem.sh)
 
+mkdir ~/Repos/ENCO
+
 # setup ENCO git config
 read -p 'ENCO username: ' GIT_USER
 read -p 'ENCO email: ' GIT_EMAIL
-git config --global 'includeIf.gitdir:~/Developer/ENCO/.user' "$GIT_USER"
-git config --global 'includeIf.gitdir:~/Developer/ENCO/.email' "$GIT_EMAIL"
+git config --global 'includeIf.gitdir:~/Repos/ENCO/.user' "$GIT_USER"
+git config --global 'includeIf.gitdir:~/Repos/ENCO/.email' "$GIT_EMAIL"
 
 
 
@@ -74,9 +76,19 @@ case "$OS" in
 		;;
 esac
 
+# docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
+sudo curl \
+    -L https://raw.githubusercontent.com/docker/compose/1.29.2/contrib/completion/bash/docker-compose \
+    -o /etc/bash_completion.d/docker-compose
+
 
 # add docker group (no sudo needed)
 sudo groupadd docker
 sudo usermod -aG docker $USER
 
 echo 'restart for docker without sudo'
+

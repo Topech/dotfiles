@@ -19,6 +19,7 @@ case "$OS" in
 		CLI_PKG_MAN='apt'
 		sudo apt install flatpak
 		sudo apt install gnome-software-plugin-flatpak
+		sudo apt install ssh
 		flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 		;;
 	"Mac")
@@ -28,14 +29,14 @@ esac
 
 # set up directories
 echo "----- create directories -----"
-mkdir -p "$HOME/Developer/repos" "$HOME/3dPrints"
+mkdir -p "$HOME/Repos" "$HOME/3dPrints"
 
 
 
 
 # install programs
 echo "----- cli installs  -----"
-sudo "$CLI_PKG_MAN" install git vim ssh zsh xkbset neovim
+sudo "$CLI_PKG_MAN" install git vim zsh xkbset neovim
 
 if [ "$OS" != "Mac" ]; then
 	echo "----- desktop installs -----"
@@ -58,15 +59,6 @@ if [ ! -d  "$NVIM_DIR" ] ; then
     # install vim-plug for neovim
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-
-    # install vim-openscad
-    git clone https://github.com/sirtaj/vim-openscad.git "$HOME/Developer/repos/"
-    SUBDIRS="syntax ftplugin ftdetect"
-    for S in $SUBDIRS; do
-        mkdir "$NVIM_DIR/$S";
-        # link all openscad files from git
-        ln -s "$HOME/Developer/repos/vim-openscad/$S/openscad.vim" "$NVIM_DIR/$S/openscad.vim";
-    done;
 
     nvim +'PlugInstall' +qa --headless
 fi

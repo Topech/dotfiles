@@ -15,8 +15,15 @@ filetype on
 
 "" --- Plugins:
 call plug#begin('~/.config/nvim/plugged')
+" essentials
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'mattn/emmet-vim'
+" file specifics
+Plug 'sirtaj/vim-openscad', {'for': 'openscad'}
 call plug#end()
+
 
 
 "" --- Tabs:
@@ -136,4 +143,41 @@ nnoremap <silent> <leader>s_ :<C-u>resize<CR>
 nnoremap <silent> <leader>s< <C-w><
 nnoremap <silent> <leader>s> <C-w>>
 nnoremap <silent> <leader>s<W-bar> :<C-u>vertical-resize<CR>
+
+
+
+"" --- emmet-vim keybinds
+" emmet only use in normal and use leader
+let g:user_emmet_mode = 'n'
+let g:user_emmet_leader_key = "<leader>e"
+
+nmap <leader>ee g_<plug>(emmet-expand-abbr)
+
+"" --- vim-surround keybinds
+" override defaults to work with leader.
+" all capitalised normal maps put the surrounded part on a new line
+" (except sW)
+let g:surround_no_mappings = 1
+
+nmap <leader>sd  <Plug>Dsurround
+
+" change surrounding
+nmap <leader>sc  <Plug>Csurround
+nmap <leader>sC  <Plug>CSurround
+
+" add surrounding to text object
+nmap <leader>sa  <Plug>Ysurround
+nmap <leader>sA  <Plug>YSurround
+
+" add surrounding to line
+nmap <leader>sl  <Plug>Yssurround
+nmap <leader>sL  <Plug>YSsurround
+
+" add surrounding to word
+nmap <leader>sw  <Plug>Ysurroundiw
+nmap <leader>sW  <Plug>YsurroundiW
+
+" add sourounding to visual selection
+xmap <leader>s   <Plug>VSurround
+xmap <leader>gs  <Plug>VgSurround
 
