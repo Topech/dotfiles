@@ -20,6 +20,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'mattn/emmet-vim'
+Plug 'airblade/vim-gitgutter'
 " file specifics
 Plug 'sirtaj/vim-openscad', {'for': 'openscad'}
 call plug#end()
@@ -72,6 +73,14 @@ highlight CursorLineNr ctermfg=white
 :  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
 :  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 :augroup END
+
+
+"" --- Plugin visuals
+" vim gitgutter
+set updatetime=1000
+let g:gitgutter_override_sign_column_highlight = 1
+highlight SignColumn guibg=NONE
+highlight SignColumn ctermbg=NONE
 
 
 "" --- Keybinds:
@@ -153,6 +162,8 @@ nnoremap <silent> <leader>s<W-bar> :<C-u>vertical-resize<CR>
 "" --- emmet-vim keybinds
 " Emmet-vim  key  overrides
 " imap <leader>e, <plug>(emmet-expand-abbr)
+nmap <leader>ee <plug>(emmet-expand-abbr)
+xmap <leader>ee <plug>(emmet-expand-abbr)
 nmap <leader>e, <plug>(emmet-expand-abbr)
 xmap <leader>e, <plug>(emmet-expand-abbr)
 " " imap <leader>e; <plug>(emmet-expand-word)
@@ -219,3 +230,12 @@ nmap <leader>sW  <Plug>YsurroundiW
 xmap <leader>s   <Plug>VSurround
 xmap <leader>gs  <Plug>VgSurround
 
+
+"" -- gitgutter keybinds
+" Jump between hunks
+nmap <leader>gn <Plug>(GitGutterNextHunk)
+nmap <leader>gp <Plug>(GitGutterPrevHunk)
+
+" Hunk-add and hunk-revert for chunk staging
+nmap <leader>ga <Plug>(GitGutterStageHunk)
+nmap <leader>gu <Plug>(GitGutterUndoHunk)
