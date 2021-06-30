@@ -77,7 +77,12 @@ highlight CursorLineNr ctermfg=white
 
 "" --- Plugin visuals
 " vim gitgutter
-set updatetime=1000
+set updatetime=250
+
+highlight GitGutterAdd    guifg=#009900 ctermfg=2
+highlight GitGutterChange guifg=#bbbb00 ctermfg=3
+highlight GitGutterDelete guifg=#ff2222 ctermfg=1
+
 let g:gitgutter_override_sign_column_highlight = 1
 highlight SignColumn guibg=NONE
 highlight SignColumn ctermbg=NONE
@@ -232,6 +237,8 @@ xmap <leader>gs  <Plug>VgSurround
 
 
 "" -- gitgutter keybinds
+let g:gitgutter_map_keys = 0
+
 " Jump between hunks
 nmap <leader>gn <Plug>(GitGutterNextHunk)
 nmap <leader>gp <Plug>(GitGutterPrevHunk)
