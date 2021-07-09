@@ -97,6 +97,10 @@ git config --global alias.lf 'log --oneline --names-only'
 git config --global alias.g "log  --graph  '--pretty=format:%C(auto)%h <%aN> %d %C(dim normal)(%cr)%Creset%n %s%n'"
 git config --global alias.ga 'g --all'
 git config --global alias.gf 'g --name-status'
+git config --global advice.pushNonFastForward false
+git config --global advice.statusHints false
+git config --global advice.commitBeforeMerge false
+git config --global advice.resolveConflict false
 
 # Reminders
 echo "----- reminders  -----"
