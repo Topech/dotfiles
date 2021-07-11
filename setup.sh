@@ -93,7 +93,7 @@ git config --global init.defaultBranch 'main'
 git config --global alias.s 'status'
 git config --global alias.l 'log --oneline'
 git config --global alias.ll 'log'
-git config --global alias.lf 'log --oneline --names-only'
+git config --global alias.lf 'log --oneline --name-only'
 git config --global alias.g "log  --graph  '--pretty=format:%C(auto)%h <%aN> %d %C(dim normal)(%cr)%Creset%n %s%n'"
 git config --global alias.ga 'g --all'
 git config --global alias.gf 'g --name-status'
