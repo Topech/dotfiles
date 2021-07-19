@@ -102,10 +102,10 @@ nnoremap <leader>s :<C-u>w<CR>
 nnoremap <leader>S :<C-u>wa<CR>
 
 " insert line, staying in normal mode
-nnoremap <silent> <expr> <leader>o ':<C-u>call append(line("."), repeat([""], v:count1))<CR>' . v:count1 . 'j'
-nnoremap <silent> <expr> <leader>O ':<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>' . v:count1 . 'k'
-nnoremap <silent> <leader><leader>o :<C-u>call append(line("."), repeat([""], v:count1))<CR>
-nnoremap <silent> <leader><leader>O :<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>
+nnoremap <silent> <expr> <leader><leader>o ':<C-u>call append(line("."), repeat([""], v:count1))<CR>' . (v:count1 + 1)/2 . 'j'
+nnoremap <silent> <expr> <leader><leader>O ':<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>' . (v:count1 + 1)/2 . 'k'
+nnoremap <silent> <leader>o :<C-u>call append(line("."), repeat([""], v:count1))<CR>
+nnoremap <silent> <leader>O :<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>
 
 " Window keybinds
 " window control
