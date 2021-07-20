@@ -49,6 +49,15 @@ set splitright
 " unhighlight by pressing esc
 nnoremap <esc> :noh<return><esc>
 
+"" keep gutter at distance
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+set timeoutlen=5000
+
 
 "" {{{2 --- Line Numbering:
 set ruler
@@ -92,6 +101,7 @@ highlight GitGutterDelete guifg=#ff2222 ctermfg=1
 let g:gitgutter_override_sign_column_highlight = 1
 highlight SignColumn guibg=NONE
 highlight SignColumn ctermbg=NONE
+
 " }}}2
 
 "" {{{2 --- ALE setup
@@ -115,8 +125,7 @@ let g:ale_fixers = {
 
 " }}}
 
-" {{{ Keybinds
-set timeoutlen=5000
+" {{{ --- Keybinds
 
 "" {{{ 2 --- Normal Leader Keybinds
 
