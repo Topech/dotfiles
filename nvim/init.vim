@@ -6,6 +6,7 @@ set mouse=a
 set ssop-=options    " do not store global and local values in a session
 set ssop-=folds      " do not store folds
 
+set foldmethod=marker
 
 "" --- File Specific settings
 syntax enable
@@ -13,21 +14,9 @@ filetype plugin on
 filetype on
 
 
-"" --- Plugins:
-call plug#begin('~/.config/nvim/plugged')
-" essentials
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'mattn/emmet-vim'
-Plug 'airblade/vim-gitgutter'
-" file specifics
-Plug 'sirtaj/vim-openscad', {'for': 'openscad'}
-call plug#end()
+"{{{ --- Visuals
 
-
-
-"" --- Tabs:
+"{{{2 --- Tabs (whitespace)
 " length of an actual \t character:
 set tabstop=4
 " length to use when editing text (eg. TAB and BS keys)
@@ -50,7 +39,7 @@ set autoindent
 " try to be smart (increase the indenting level after ‘{’,
 " decrease it after ‘}’, and so on):
 "set smartindent
-
+"}}}2
 
 "" --- Split Options
 set splitbelow
@@ -61,7 +50,7 @@ set splitright
 nnoremap <esc> :noh<return><esc>
 
 
-"" --- Line Numbering:
+"" {{{2 --- Line Numbering:
 set ruler
 set number relativenumber
 highlight LineNr ctermfg=darkgrey
@@ -73,10 +62,27 @@ highlight CursorLineNr ctermfg=white
 :  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
 :  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 :augroup END
+" }}}2
 
+" }}}
 
-"" --- Plugin visuals
-" vim gitgutter
+"" {{{ --- Plugins:
+
+" {{{2 --- Plugin List
+call plug#begin('~/.config/nvim/plugged')
+" essentials
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'mattn/emmet-vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'dense-analysis/ALE'
+" file specifics
+Plug 'sirtaj/vim-openscad', {'for': 'openscad'}
+call plug#end()
+" }}}2
+
+" {{{2 --- vim gitgutter
 set updatetime=250
 
 highlight GitGutterAdd    guifg=#009900 ctermfg=2
@@ -86,85 +92,96 @@ highlight GitGutterDelete guifg=#ff2222 ctermfg=1
 let g:gitgutter_override_sign_column_highlight = 1
 highlight SignColumn guibg=NONE
 highlight SignColumn ctermbg=NONE
+" }}}2
 
+"" {{{2 --- ALE setup
+let g:ale_set_highlights = 0
+let g:ale_completion_enable = 0
 
-"" --- Keybinds:
+let g:ale_linter_aliases = {'vue': ['javascript', 'vue']}
+let g:ale_linters = {
+\ 'javascript': ['eslint'],
+\ 'vue': ['eslint'],
+\ 'python': ['flake8']
+\ }
+let g:ale_fixer_aliases = {'vue': ['javascript', 'vue']}
+let g:ale_fixers = {
+\ '*': ['trim_whitespace'],
+\ 'javascript': ['prettier'],
+\ 'vue': ['eslint'],
+\ 'python': ['autoflake'],
+\ }
+" }}}2
+
+" }}}
+
+" {{{ Keybinds
 set timeoutlen=5000
 
-" easy escape
-" inoremap ;; <Esc>
+"" {{{ 2 --- Normal Leader Keybinds
 
 " set space to leader
 let mapleader = "\<Space>"
 
-"saving
-nnoremap <leader>s :<C-u>w<CR>
-nnoremap <leader>S :<C-u>wa<CR>
-
-" insert line, staying in normal mode
+" new line, staying in normal mode
 nnoremap <silent> <expr> <leader><leader>o ':<C-u>call append(line("."), repeat([""], v:count1))<CR>' . (v:count1 + 1)/2 . 'j'
 nnoremap <silent> <expr> <leader><leader>O ':<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>' . (v:count1 + 1)/2 . 'k'
 nnoremap <silent> <leader>o :<C-u>call append(line("."), repeat([""], v:count1))<CR>
 nnoremap <silent> <leader>O :<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>
 
-" Window keybinds
+" {{{ 3 --- Window keybinds
 " window control
-nnoremap <silent> <leader>wc :<C-u>close<CR>
+nnoremap <silent> <leader>wq :<C-u>close<CR>
 nnoremap <silent> <leader>wo :<C-u>only<CR>
 nnoremap <silent> <leader>wp :<C-u>wincmd p<CR>
 
 " New split
-nnoremap <silent> <leader>snh :<C-u>new<CR>
-nnoremap <silent> <leader>snv :<C-u>vnew<CR>
-
-" New tab
-nnoremap <silent> <leader>tN :<C-u>tabnew<CR>
-nnoremap <silent> <leader>tnh :<C-u>-tabnew<CR>
-nnoremap <silent> <leader>tnl :<C-u>tabnew<CR>
-nnoremap <silent> <leader>tnH :<C-u>0tabnew<CR>
-nnoremap <silent> <leader>tnL :<C-u>$tabnew<CR>
-
+nnoremap <silent> <leader>ws :<C-u>new<CR>
+nnoremap <silent> <leader>wS :<C-u>vnew<CR>
 " Move between splits
-nnoremap <silent> <leader>sh :<C-u>wincmd h<CR>
-nnoremap <silent> <leader>sj :<C-u>wincmd j<CR>
-nnoremap <silent> <leader>sk :<C-u>wincmd k<CR>
-nnoremap <silent> <leader>sl :<C-u>wincmd l<CR>
-
-" Move between tabs
-nnoremap <silent> <leader>th :<C-u>tabprevious<CR>
-nnoremap <silent> <leader>tl :<C-u>tabnext<CR>
-nnoremap <silent> <leader>t0 :<C-u>tabfirst<CR>
-nnoremap <silent> <leader>t$ :<C-u>tablast<CR>
-nnoremap <silent> <leader>tL :<C-u>tabmove -1<CR>
-nnoremap <silent> <leader>tH :<C-u>tabmove +1<CR>
-
+nnoremap <silent> <leader>wh :<C-u>wincmd h<CR>
+nnoremap <silent> <leader>wj :<C-u>wincmd j<CR>
+nnoremap <silent> <leader>wk :<C-u>wincmd k<CR>
+nnoremap <silent> <leader>wl :<C-u>wincmd l<CR>
+" split resizing
+nnoremap <silent> <leader>w= <C-w>=
+nnoremap <silent> <leader>w- <C-w>-
+nnoremap <silent> <leader>w+ <C-w>+
+nnoremap <silent> <leader>w_ :<C-u>resize<CR>
+nnoremap <silent> <leader>w< <C-w><
+nnoremap <silent> <leader>w> <C-w>>
+nnoremap <silent> <leader>w<W-bar> :<C-u>vertical-resize<CR>
 " split manipulation
-nnoremap <silent> <leader>sr :<C-u>wincmd r<CR>
-nnoremap <silent> <leader>sR :<C-u>wincmd R<CR>
-nnoremap <silent> <leader>sx :<C-u>wincmd x<CR>
-nnoremap <silent> <leader>sH :<C-u>wincmd H<CR>
-nnoremap <silent> <leader>sJ :<C-u>wincmd J<CR>
-nnoremap <silent> <leader>sK :<C-u>wincmd K<CR>
-nnoremap <silent> <leader>sL :<C-u>wincmd L<CR>
+nnoremap <silent> <leader>wr :<C-u>wincmd r<CR>
+nnoremap <silent> <leader>wR :<C-u>wincmd R<CR>
+nnoremap <silent> <leader>wx :<C-u>wincmd x<CR>
+nnoremap <silent> <leader>wH :<C-u>wincmd H<CR>
+nnoremap <silent> <leader>wJ :<C-u>wincmd J<CR>
+nnoremap <silent> <leader>wK :<C-u>wincmd K<CR>
+nnoremap <silent> <leader>wL :<C-u>wincmd L<CR>
 " nnoremap <silent> <leader>wT :<C-u>wincmd T<CR>
 
+" New tab
+nnoremap <silent> <leader>tt :<C-u>tabnew<CR>
+nnoremap <silent> <leader>tb :<C-u>-tabnew<CR>
+nnoremap <silent> <leader>ta :<C-u>tabnew<CR>
+nnoremap <silent> <leader>ts :<C-u>0tabnew<CR>
+nnoremap <silent> <leader>te :<C-u>$tabnew<CR>
+" Move between tabs
+nnoremap <silent> <leader>tn :<C-u>tabprevious<CR>
+nnoremap <silent> <leader>tp :<C-u>tabnext<CR>
+nnoremap <silent> <leader>t0 :<C-u>tabfirst<CR>
+nnoremap <silent> <leader>t$ :<C-u>tablast<CR>
+nnoremap <silent> <leader>tN :<C-u>tabmove -1<CR>
+nnoremap <silent> <leader>tP :<C-u>tabmove +1<CR>
 " tab manipulation
-nnoremap <silent> <leader>tc :<C-u>tabclose<CR>
+nnoremap <silent> <leader>tq :<C-u>tabclose<CR>
 nnoremap <silent> <leader>to :<C-u>tabonly<CR>
 nnoremap <silent> <leader>tp :<C-u>tabrewind<CR>
 
-" split resizing
-nnoremap <silent> <leader>s= <C-w>=
-nnoremap <silent> <leader>s- <C-w>-
-nnoremap <silent> <leader>s+ <C-w>+
-nnoremap <silent> <leader>s_ :<C-u>resize<CR>
-nnoremap <silent> <leader>s< <C-w><
-nnoremap <silent> <leader>s> <C-w>>
-nnoremap <silent> <leader>s<W-bar> :<C-u>vertical-resize<CR>
+" }}} 3
 
-
-
-"" --- emmet-vim keybinds
+"" {{{ 3 --- emmet-vim keybinds
 " Emmet-vim  key  overrides
 " imap <leader>e, <plug>(emmet-expand-abbr)
 nmap <leader>ee <plug>(emmet-expand-abbr)
@@ -206,8 +223,9 @@ xmap <leader>ec <plug>(emmet-code-pretty)
 " moves to end of line then expands emmet abbreviation.
 " (end of line needed to expand whole abbreviation)
 nmap <leader>ee g_<plug>(emmet-expand-abbr)
+"}}} 3
 
-"" --- vim-surround keybinds
+"" {{{ 3 --- vim-surround keybinds
 " override defaults to work with leader.
 " all capitalised normal maps put the surrounded part on a new line
 " (except sW)
@@ -234,9 +252,9 @@ nmap <leader>sW  <Plug>YsurroundiW
 " add sourounding to visual selection
 xmap <leader>s   <Plug>VSurround
 xmap <leader>gs  <Plug>VgSurround
+" }}} 3
 
-
-"" -- gitgutter keybinds
+"" {{{ 3 --- gitgutter keybinds
 let g:gitgutter_map_keys = 0
 
 " Jump between hunks
@@ -246,3 +264,8 @@ nmap <leader>gp <Plug>(GitGutterPrevHunk)
 " Hunk-add and hunk-revert for chunk staging
 nmap <leader>ga <Plug>(GitGutterStageHunk)
 nmap <leader>gu <Plug>(GitGutterUndoHunk)
+" }}} 3
+
+" }}} 2
+
+" }}}
