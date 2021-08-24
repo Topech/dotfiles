@@ -50,12 +50,7 @@ set splitright
 nnoremap <esc> :noh<return><esc>
 
 "" keep gutter at distance
-if has("nvim-0.5.0") || has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
+set signcolumn=yes
 set timeoutlen=5000
 
 
@@ -86,7 +81,9 @@ Plug 'tpope/vim-repeat'
 Plug 'mattn/emmet-vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'dense-analysis/ALE'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 " file specifics
+Plug 'jalvesaq/Nvim-R', {'for' : 'r'}
 Plug 'sirtaj/vim-openscad', {'for': 'openscad'}
 call plug#end()
 " }}}2
@@ -108,21 +105,23 @@ highlight SignColumn ctermbg=NONE
 let g:ale_set_highlights = 0
 let g:ale_completion_enable = 0
 
-let g:ale_linter_aliases = {'vue': ['javascript', 'vue']}
+let g:ale_linter_aliases = {'vue': ['vue', 'javascript', 'html', 'scss']}
 let g:ale_linters = {
-\ 'javascript': ['eslint'],
-\ 'vue': ['eslint'],
+\ 'javascript': ['eslint', 'tsserver'],
+\ 'vue': ['eslint', 'vls'],
 \ 'python': ['flake8']
 \ }
 let g:ale_fixer_aliases = {'vue': ['javascript', 'vue']}
 let g:ale_fixers = {
 \ '*': ['trim_whitespace'],
 \ 'javascript': ['prettier'],
-\ 'vue': ['eslint'],
+\ 'vue': ['prettier'],
 \ 'python': ['autoflake'],
 \ }
 " }}}2
 
+" {{{2 --- FZF setup
+let $FZF_DEFAULT_COMMAND = 'rg --hidden --files '
 " }}}
 
 " {{{ --- Keybinds
@@ -131,6 +130,7 @@ let g:ale_fixers = {
 
 " set space to leader
 let mapleader = "\<Space>"
+let maplocalleader = "-"
 
 " new line, staying in normal mode
 nnoremap <silent> <expr> <leader><leader>o ':<C-u>call append(line("."), repeat([""], v:count1))<CR>' . (v:count1 + 1)/2 . 'j'
@@ -273,6 +273,11 @@ nmap <leader>gp <Plug>(GitGutterPrevHunk)
 " Hunk-add and hunk-revert for chunk staging
 nmap <leader>ga <Plug>(GitGutterStageHunk)
 nmap <leader>gu <Plug>(GitGutterUndoHunk)
+" }}} 3
+
+"" {{{ 3 --- FZF keybinds
+nnoremap <leader>ff :<C-u>FZF<CR>
+nnoremap <leader>fh :<C-u>FZF ~<CR>
 " }}} 3
 
 " }}} 2
