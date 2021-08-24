@@ -121,7 +121,7 @@ let g:ale_fixers = {
 " }}}2
 
 " {{{2 --- FZF setup
-let $FZF_DEFAULT_COMMAND = 'rg --hidden --files '
+let $FZF_DEFAULT_COMMAND = 'rg --hidden --files -g !.git/'
 " }}}
 
 " {{{ --- Keybinds
