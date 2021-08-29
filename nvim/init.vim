@@ -76,12 +76,13 @@ highlight CursorLineNr ctermfg=white
 call plug#begin('~/.config/nvim/plugged')
 " essentials
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'dense-analysis/ALE'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'mattn/emmet-vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'dense-analysis/ALE'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 " file specifics
 Plug 'jalvesaq/Nvim-R', {'for' : 'r'}
 Plug 'sirtaj/vim-openscad', {'for': 'openscad'}
@@ -105,7 +106,7 @@ highlight SignColumn ctermbg=NONE
 let g:ale_set_highlights = 0
 let g:ale_completion_enable = 0
 
-let g:ale_linter_aliases = {'vue': ['vue', 'javascript', 'html', 'scss']}
+let g:ale_linter_aliases = {'vue': ['javascript', 'vue']}
 let g:ale_linters = {
 \ 'javascript': ['eslint', 'tsserver'],
 \ 'vue': ['eslint', 'vls'],
@@ -114,10 +115,24 @@ let g:ale_linters = {
 let g:ale_fixer_aliases = {'vue': ['javascript', 'vue']}
 let g:ale_fixers = {
 \ '*': ['trim_whitespace'],
-\ 'javascript': ['prettier'],
-\ 'vue': ['prettier'],
+\ 'javascript': ['eslint'],
+\ 'vue': ['eslint', 'prettier'],
 \ 'python': ['autoflake'],
 \ }
+
+""" let g:ale_linter_aliases = {'vue': ['vue', 'javascript', 'html', 'scss']}
+""" let g:ale_linters = {
+""" \ 'javascript': ['eslint', 'tsserver'],
+""" \ 'vue': ['eslint', 'vls'],
+""" \ 'python': ['flake8']
+""" \ }
+""" let g:ale_fixer_aliases = {'vue': ['javascript', 'vue']}
+""" let g:ale_fixers = {
+""" \ '*': ['trim_whitespace'],
+""" \ 'javascript': ['prettier'],
+""" \ 'vue': ['prettier'],
+""" \ 'python': ['autoflake'],
+""" \ }
 " }}}2
 
 " {{{2 --- FZF setup
