@@ -10,13 +10,13 @@ if [[ $EUID -eq 0 ]]; then
 fi
 
 
-OS=$(./detectOperatingSystem.sh)
+OS=$(./detect_OS.sh)
 
 mkdir ~/Repos/ENCO
 
 # setup ENCO git config
-read -p 'ENCO username: ' GIT_USER
-read -p 'ENCO email: ' GIT_EMAIL
+read -rp 'ENCO username: ' GIT_USER
+read -rp 'ENCO email: ' GIT_EMAIL
 git config --global 'includeIf.gitdir:~/Repos/ENCO/.user' "$GIT_USER"
 git config --global 'includeIf.gitdir:~/Repos/ENCO/.email' "$GIT_EMAIL"
 

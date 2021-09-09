@@ -3,17 +3,12 @@
 trap 'exit 130' INT
 
 
-OS=$(./src/detectOperatingSystem.sh)
+OS=$(./detect_OS.sh)
 echo "Detected $OS!"
 
 case "$OS" in
 	"Fedora")
 		CLI_PKG_MAN='dnf'
-		sudo dnf install tlp tlp-rdw powertop
-		for serv in tlp tlp powertop; do
-			sudo systemctl start "$serv.service"
-			sudo systemctl enable "$serv.service"
-		done
 		;;
 	"Ubuntu")
 		CLI_PKG_MAN='apt'
@@ -22,6 +17,10 @@ case "$OS" in
 		sudo apt install ssh
 		flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 		;;
+    "Linux Mint")
+        CLI_PKG_MAN='apt'
+        OS="Ubuntu"  # all other commands are just ubuntu
+        ;;
 	"Mac")
 		CLI_PKG_MAN='brew'
 		;;
@@ -36,19 +35,18 @@ mkdir -p "$HOME/Repos" "$HOME/3dPrints"
 
 # install programs
 echo "----- cli installs  -----"
-sudo "$CLI_PKG_MAN" install git vim zsh xkbset neovim
+sudo "$CLI_PKG_MAN" install git neovim
 
 if [ "$OS" != "Mac" ]; then
 	echo "----- desktop installs -----"
-	flatpak install flathub com.bitwarden.desktop com.visualstudio.code org.signal.Signal com.spotify.Client -y
+	flatpak install flathub com.bitwarden.desktop org.signal.Signal com.spotify.Client -y
 
-	echo "----- herbstluftwm installs  -----"
-	sudo "$CLI_PKG_MAN" install plank xfce4-terminal dmenu feh arandr compton i3lock
+	# echo "----- herbstluftwm installs  -----"
+	# sudo "$CLI_PKG_MAN" install plank xfce4-terminal dmenu feh arandr compton i3lock
+else
+    brew install bitwarden signal spotify
 fi
 
-# install source programs
-## TODO: Create directory for 
-# - polybar
 
 # Set Up Neovim
 echo "---- set up neovim ---"
@@ -65,13 +63,23 @@ fi
 
 # configure dotfiles into system
 echo "----- dotfiles  -----"
-chmod +x src/lndotfiles.sh
-./src/lndotfiles.sh
+source soft_linker.sh
+
+pushd ..
+TARGET_DIR="$HOME"
+DOTFILES=".bashrc .bash_aliases .profile .vimrc .zshrc"
+link_dotfiles "$TARGET_DIR" "$DOTFILES"
+
+
+TARGET_DIR="$HOME/.config"
+DOTFILES="herbstluftwm Xmodmap nvim/init.vim"
+link_dotfiles "$TARGET_DIR" "$DOTFILES"
+popd 
 
 # ssh keygen
 echo "----- ssh-keygen  -----"
 if [ ! -f "$HOME/.ssh/id_rsa" ] ; then
-	ssh-keygen
+	ssh-keygen -b 4096 -t rsa
 	chmod 400 "$HOME/.ssh/id_rsa*"
 else
 	echo 'key already generated'
@@ -80,8 +88,8 @@ fi
 
 # Git setup
 echo "----- git setup -----"
-read -p 'Git username: ' GIT_USERNAME
-read -p 'Git email: ' GIT_EMAIL
+read -rp 'Git username: ' GIT_USERNAME
+read -rp 'Git email: ' GIT_EMAIL
 
 git config --global user.name "$GIT_USERNAME"
 git config --global user.email "$GIT_EMAIL"

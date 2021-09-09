@@ -10,7 +10,7 @@ if [[ $EUID -eq 0 ]]; then
 fi
 
 
-OS=$(./detectOperatingSystem.sh)
+OS=$(./detect_OS.sh)
 
 
 
