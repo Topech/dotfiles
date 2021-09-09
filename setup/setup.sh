@@ -3,7 +3,7 @@
 trap 'exit 130' INT
 
 
-OS=$(./detect_OS.sh)
+OS=$(./setup/detect_OS.sh)
 echo "Detected $OS!"
 
 case "$OS" in
@@ -63,8 +63,8 @@ fi
 
 # configure dotfiles into system
 echo "----- dotfiles  -----"
-chmod +x soft_linker.sh
-./soft_linker.sh
+chmod +x setup/soft_linker.sh
+./setup/soft_linker.sh
 
 
 # ssh keygen

@@ -10,7 +10,7 @@ if [[ $EUID -eq 0 ]]; then
 fi
 
 
-OS=$(./detect_OS.sh)
+OS=$(./setup/detect_OS.sh)
 
 mkdir ~/Repos/ENCO
 
