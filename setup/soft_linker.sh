@@ -28,7 +28,7 @@ function link_dotfiles() {
 
 		# first remove broken link
 		if is_broken_link "$FILE"; then
-			rm "$f"
+			rm "$FILE"
 		fi
 
 		if already_linked "$FILE" ; then
