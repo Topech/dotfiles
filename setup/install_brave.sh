@@ -10,7 +10,7 @@ if [[ $EUID -eq 0 ]]; then
 fi
 
 
-OS=$(./detect_OS.sh)
+OS=$(./setup/detect_OS.sh)
 
 
 
@@ -33,6 +33,9 @@ then
                 | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
             sudo apt update
             sudo apt install brave-browser
+            ;;
+        "Mac")
+            brew install brave-browser
             ;;
     esac
 fi
