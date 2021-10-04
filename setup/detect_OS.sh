@@ -20,4 +20,8 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 	OS=Mac
 fi
 
+if [ "$OS" == "Linux Mint" ]; then
+	OS="Ubuntu"
+fi
+
 echo "$OS"

@@ -75,7 +75,7 @@ highlight CursorLineNr ctermfg=white
 " {{{2 --- Plugin List
 call plug#begin('~/.config/nvim/plugged')
 " essentials
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ALE'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
