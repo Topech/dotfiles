@@ -1,4 +1,4 @@
-colorscheme zellner
+colorscheme slate
 
 set wildmenu 
 set mouse=a
@@ -75,17 +75,24 @@ highlight CursorLineNr ctermfg=white
 " {{{2 --- Plugin List
 call plug#begin('~/.config/nvim/plugged')
 " essentials
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'dense-analysis/ALE'
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'dense-analysis/ALE'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'mattn/emmet-vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'jreybert/vimagit'
+Plug 'sainnhe/sonokai'
 " file specifics
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'npm install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
 Plug 'jalvesaq/Nvim-R', {'for' : 'r'}
 Plug 'sirtaj/vim-openscad', {'for': 'openscad'}
+Plug 'posva/vim-vue'
 call plug#end()
 " }}}2
 
@@ -103,36 +110,22 @@ highlight SignColumn ctermbg=NONE
 " }}}2
 
 "" {{{2 --- ALE setup
-let g:ale_set_highlights = 0
-let g:ale_completion_enable = 0
-
-let g:ale_linter_aliases = {'vue': ['javascript', 'vue']}
-let g:ale_linters = {
-\ 'javascript': ['eslint', 'tsserver'],
-\ 'vue': ['eslint', 'vls'],
-\ 'python': ['flake8']
-\ }
-let g:ale_fixer_aliases = {'vue': ['javascript', 'vue']}
-let g:ale_fixers = {
-\ '*': ['trim_whitespace'],
-\ 'javascript': ['eslint'],
-\ 'vue': ['eslint', 'prettier'],
-\ 'python': ['autoflake'],
-\ }
-
-""" let g:ale_linter_aliases = {'vue': ['vue', 'javascript', 'html', 'scss']}
-""" let g:ale_linters = {
-""" \ 'javascript': ['eslint', 'tsserver'],
-""" \ 'vue': ['eslint', 'vls'],
-""" \ 'python': ['flake8']
-""" \ }
-""" let g:ale_fixer_aliases = {'vue': ['javascript', 'vue']}
-""" let g:ale_fixers = {
-""" \ '*': ['trim_whitespace'],
-""" \ 'javascript': ['prettier'],
-""" \ 'vue': ['prettier'],
-""" \ 'python': ['autoflake'],
-""" \ }
+" " let g:ale_set_highlights = 0
+" " let g:ale_completion_enable = 0
+" " 
+" " let g:ale_linter_aliases = {'vue': ['javascript', 'vue']}
+" " let g:ale_linters = {
+" " \ 'javascript': ['eslint', 'tsserver'],
+" " \ 'vue': ['eslint', 'vls'],
+" " \ 'python': ['flake8']
+" " \ }
+" " let g:ale_fixer_aliases = {'vue': ['javascript', 'vue']}
+" " let g:ale_fixers = {
+" " \ '*': ['trim_whitespace'],
+" " \ 'javascript': ['eslint'],
+" " \ 'vue': ['eslint', 'prettier'],
+" " \ 'python': ['autoflake'],
+" " \ }
 " }}}2
 
 " {{{2 --- FZF setup
@@ -298,3 +291,11 @@ nnoremap <leader>fh :<C-u>FZF ~<CR>
 " }}} 2
 
 " }}}
+"
+
+if has('termguicolors')
+    set termguicolors
+endif
+
+" let g:sonokai_style = 'andromeda'
+" let g:sonokai_enable_italic = 1
