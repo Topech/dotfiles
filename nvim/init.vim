@@ -87,6 +87,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'neovim/nvim-lspconfig'
+Plug 'mileszs/ack.vim'
 " file specifics
 Plug 'prettier/vim-prettier', {
   \ 'do': 'npm install',
