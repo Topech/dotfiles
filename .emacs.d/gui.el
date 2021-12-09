@@ -10,9 +10,9 @@
 (menu-bar-mode -1)
 
 
-(set-face-attribute 'default nil :font "JetBrains Mono" :height my/default-font-size)
-(set-face-attribute 'fixed-pitch nil :font "JetBrains Mono" :height my/default-font-size)
-(set-face-attribute 'variable-pitch nil :font "Arial" :height 140 :weight 'regular)
+;; (set-face-attribute 'default nil :font "monospace" :height my/default-font-size)
+;; (set-face-attribute 'fixed-pitch nil :font "monospace" :height my/default-font-size)
+;; (set-face-attribute 'variable-pitch nil :font "Ubuntu Regular" :height 140 :weight 'regular)
 
 
 (use-package all-the-icons)

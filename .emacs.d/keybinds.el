@@ -16,6 +16,7 @@
   :init
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
+  (setq evil-want-find-undo t)
   :config
   (evil-mode 1)
 
@@ -39,6 +40,16 @@
   (evil-global-set-key 'motion (kbd "<leader>wj") 'evil-window-down)
   (evil-global-set-key 'motion (kbd "<leader>wk") 'evil-window-up)
   (evil-global-set-key 'motion (kbd "<leader>wl") 'evil-window-right)
+
+  (evil-global-set-key 'motion (kbd "<leader>wH") 'evil-window-move-far-left)
+  (evil-global-set-key 'motion (kbd "<leader>wJ") 'evil-window-move-very-bottom)
+  (evil-global-set-key 'motion (kbd "<leader>wK") 'evil-window-move-very-top)
+  (evil-global-set-key 'motion (kbd "<leader>wL") 'evil-window-move-far-right)
+
+  (evil-global-set-key 'motion (kbd "<leader>ws") 'evil-window-split)
+  (evil-global-set-key 'motion (kbd "<leader>wS") 'evil-window-vsplit)
+
+  (evil-global-set-key 'normal "U" 'evil-redo)
 )
 
 ;; (use-package evil-collection
