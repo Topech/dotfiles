@@ -2,9 +2,10 @@
 
 (load (my/helpers/xah-get-fullpath "setup_packages.el"))
 
+(load (my/helpers/xah-get-fullpath "general_packages.el"))
+(load (my/helpers/xah-get-fullpath "keybinds.el"))
 (load (my/helpers/xah-get-fullpath "gui.el"))
 (load (my/helpers/xah-get-fullpath "completions.el"))
-(load (my/helpers/xah-get-fullpath "keybinds.el"))
 (load (my/helpers/xah-get-fullpath "programming.el"))
 
 

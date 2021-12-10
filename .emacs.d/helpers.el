@@ -1,7 +1,6 @@
 (defun my/helpers/xah-get-fullpath (@file-relative-path)
-
-  "from http://ergoemacs.org/emacs/organize_your_dot_emacs.html"
-  "Return the full path of *file-relative-path, relative to caller's file location.
+  "from http://ergoemacs.org/emacs/organize_your_dot_emacs.html
+  Return the full path of *file-relative-path, relative to caller's file location.
 
 Example: If you have this line
  (xah-get-fullpath \"../xyz.el\")

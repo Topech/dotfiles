@@ -1,22 +1,28 @@
-(defun insert-line-above ()
-  (interactive)
+(defun my/insert-line-above (n)
+  (interactive "p")
   (save-excursion
     (end-of-line 0)
-    (open-line 1)))
+    (open-line n)))
 
 
-(defun insert-line-below ()
-  (interactive)
+(defun my/insert-line-below (n)
+  (interactive "p")
   (save-excursion
     (end-of-line)
-    (open-line 1)))
+    (open-line n)))
+
+
+(defun my/kill-all-windows ()
+  (interactive)
+  (delete-other-windows)
+  (delete-window))
 
 
 (use-package evil
   :init
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
-  (setq evil-want-find-undo t)
+  (setq evil-undo-system 'undo-tree)
   :config
   (evil-mode 1)
 
@@ -31,8 +37,8 @@
   (evil-global-set-key 'motion "K" 'evil-previous-line)
   (evil-global-set-key 'motion "L" 'evil-last-non-blank)
 
-  (evil-global-set-key 'normal (kbd "<leader>o") 'insert-line-below)
-  (evil-global-set-key 'normal (kbd "<leader>O") 'insert-line-above)
+  (evil-global-set-key 'normal (kbd "<leader>o") 'my/insert-line-below)
+  (evil-global-set-key 'normal (kbd "<leader>O") 'my/insert-line-above)
   
   (evil-global-set-key 'motion (kbd "<leader>x") 'execute-extended-command)
 
@@ -51,6 +57,7 @@
 
   (evil-global-set-key 'normal "U" 'evil-redo)
 )
+
 
 ;; (use-package evil-collection
   ;; :after evil
