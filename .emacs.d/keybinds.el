@@ -55,11 +55,18 @@
   (evil-global-set-key 'motion (kbd "<leader>ws") 'evil-window-split)
   (evil-global-set-key 'motion (kbd "<leader>wS") 'evil-window-vsplit)
 
+  (evil-global-set-key 'motion (kbd "<leader>ts") 'tab-bar-new-tab)
+  (evil-global-set-key 'motion (kbd "<leader>tn") 'tab-bar-switch-to-next-tab)
+  (evil-global-set-key 'motion (kbd "<leader>tN") 'tab-bar-switch-to-prev-tab)
+  (evil-global-set-key 'motion (kbd "<leader>tx") 'tab-bar-close-tab)
+
   (evil-global-set-key 'normal "U" 'evil-redo)
+
+  (evil-global-set-key 'insert (kbd"<tab>") 'evil-execute-in-normal-state)
 )
 
 
-;; (use-package evil-collection
-  ;; :after evil
-  ;; :config
-  ;; (evil-collection-init))
+(use-package evil-collection
+  :after evil
+  :config
+  (evil-collection-init))

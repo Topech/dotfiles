@@ -49,3 +49,7 @@
   :diminish which-key-mode
   :config
   (setq which-key-idle-delay 0.3))
+
+
+(use-package tab-bar
+  :init (tab-bar-mode 1))
