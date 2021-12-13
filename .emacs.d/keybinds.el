@@ -62,7 +62,9 @@
 
   (evil-global-set-key 'normal "U" 'evil-redo)
 
-  (evil-global-set-key 'insert (kbd"<tab>") 'evil-execute-in-normal-state)
+  (evil-global-set-key 'insert (kbd "<tab>") 'evil-execute-in-normal-state)
+
+  (evil-global-set-key 'motion (kbd "<leader>p") 'projectile-command-map)
 )
 
 
