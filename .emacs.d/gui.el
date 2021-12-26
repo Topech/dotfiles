@@ -41,8 +41,10 @@
 
 
 (use-package doom-themes
-  :init (load-theme `doom-gruvbox t))
+ :init (load-theme `doom-gruvbox t))
 
+; (use-package zenburn-theme
+;  :init (load-theme 'zenburn t))
 
 (use-package which-key
   :init (which-key-mode)
