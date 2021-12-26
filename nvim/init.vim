@@ -1,5 +1,3 @@
-colorscheme slate
-
 set wildmenu 
 set mouse=a
 
@@ -14,9 +12,9 @@ filetype plugin on
 filetype on
 
 
-"{{{ --- Visuals
+" --- Visuals
 
-"{{{2 --- Tabs (whitespace)
+" --- Tabs (whitespace)
 " length of an actual \t character:
 set tabstop=4
 " length to use when editing text (eg. TAB and BS keys)
@@ -39,7 +37,7 @@ set autoindent
 " try to be smart (increase the indenting level after ‘{’,
 " decrease it after ‘}’, and so on):
 "set smartindent
-"}}}2
+"
 
 "" --- Split Options
 set splitbelow
@@ -54,7 +52,7 @@ set signcolumn=yes
 set timeoutlen=5000
 
 
-"" {{{2 --- Line Numbering:
+""  --- Line Numbering:
 set ruler
 set number relativenumber
 highlight LineNr ctermfg=darkgrey
@@ -66,17 +64,16 @@ highlight CursorLineNr ctermfg=white
 :  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
 :  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 :augroup END
-" }}}2
+" 
 
 if has('termguicolors')
     set termguicolors
 endif
 
-" }}}
 
-"" {{{ --- Plugins:
+""  --- Plugins:
 
-" {{{2 --- Plugin List
+"  --- Plugin List
 call plug#begin('~/.config/nvim/plugged')
 " essentials
 Plug 'tpope/vim-surround'
@@ -86,21 +83,19 @@ Plug 'mattn/emmet-vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'neovim/nvim-lspconfig'
 Plug 'mileszs/ack.vim'
+Plug 'sonph/onehalf', { 'rtp': 'vim' }
 " file specifics
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'npm install',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
 Plug 'jalvesaq/Nvim-R', {'for' : 'r'}
 Plug 'sirtaj/vim-openscad', {'for': 'openscad'}
 Plug 'posva/vim-vue'
 call plug#end()
-" }}}2
 
 
+colorscheme onehalfdark
 
-" {{{2 --- vim gitgutter
+
+"  --- vim gitgutter
 set updatetime=250
 
 highlight GitGutterAdd    guifg=#009900 ctermfg=2
@@ -111,15 +106,13 @@ let g:gitgutter_override_sign_column_highlight = 1
 highlight SignColumn guibg=NONE
 highlight SignColumn ctermbg=NONE
 
-" }}}2
 
-" {{{2 --- FZF setup
+"  --- FZF setup
 let $FZF_DEFAULT_COMMAND = 'rg --hidden --files -g !.git/'
-" }}}
 
-" {{{ --- Keybinds
+"  --- Keybinds
 
-"" {{{ 2 --- Normal Leader Keybinds
+"" --- Normal Leader Keybinds
 
 " set space to leader
 let mapleader = "\<Space>"
@@ -131,7 +124,7 @@ nnoremap <silent> <expr> <leader><leader>O ':<C-u>call append(line(".")-1, repea
 nnoremap <silent> <leader>o :<C-u>call append(line("."), repeat([""], v:count1))<CR>
 nnoremap <silent> <leader>O :<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>
 
-" {{{ 3 --- Window keybinds
+"  --- Window keybinds
 " window control
 nnoremap <silent> <leader>wq :<C-u>close<CR>
 nnoremap <silent> <leader>wo :<C-u>only<CR>
@@ -181,12 +174,11 @@ nnoremap <silent> <leader>tq :<C-u>tabclose<CR>
 nnoremap <silent> <leader>to :<C-u>tabonly<CR>
 nnoremap <silent> <leader>tp :<C-u>tabrewind<CR>
 
-" }}} 3
 
-"" {{{ 3 --- emmet-vim keybinds
+""  --- emmet-vim keybinds
 " Emmet-vim  key  overrides
 " imap <leader>e, <plug>(emmet-expand-abbr)
-nmap <leader>ee <plug>(emmet-expand-abbr)
+" nmap <leader>ee <plug>(emmet-expand-abbr)
 xmap <leader>ee <plug>(emmet-expand-abbr)
 nmap <leader>e, <plug>(emmet-expand-abbr)
 xmap <leader>e, <plug>(emmet-expand-abbr)
@@ -225,9 +217,9 @@ xmap <leader>ec <plug>(emmet-code-pretty)
 " moves to end of line then expands emmet abbreviation.
 " (end of line needed to expand whole abbreviation)
 nmap <leader>ee g_<plug>(emmet-expand-abbr)
-"}}} 3
 
-"" {{{ 3 --- vim-surround keybinds
+
+""  --- vim-surround keybinds
 " override defaults to work with leader.
 " all capitalised normal maps put the surrounded part on a new line
 " (except sW)
@@ -254,9 +246,8 @@ nmap <leader>sW  <Plug>YsurroundiW
 " add sourounding to visual selection
 xmap <leader>s   <Plug>VSurround
 xmap <leader>gs  <Plug>VgSurround
-" }}} 3
 
-"" {{{ 3 --- gitgutter keybinds
+""  --- gitgutter keybinds
 let g:gitgutter_map_keys = 0
 
 " Jump between hunks
@@ -266,64 +257,10 @@ nmap <leader>gp <Plug>(GitGutterPrevHunk)
 " Hunk-add and hunk-revert for chunk staging
 nmap <leader>ga <Plug>(GitGutterStageHunk)
 nmap <leader>gu <Plug>(GitGutterUndoHunk)
-" }}} 3
 
-"" {{{ 3 --- FZF keybinds
+""  --- FZF keybinds
 nnoremap <leader>ff :<C-u>FZF<CR>
 nnoremap <leader>fh :<C-u>FZF ~<CR>
-" }}} 3
 
-" }}} 2
 
-" }}}
-"
-
-lua << EOF
-local nvim_lsp = require('lspconfig')
-
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-  -- Enable completion triggered by <c-x><c-o>
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  -- Mappings.
-  local opts = { noremap=true, silent=true }
-
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-
-end
-
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
-local servers = { 'pyright', 'vuels'}
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
-    on_attach = on_attach,
-    flags = {
-      debounce_text_changes = 150,
-    }
-  }
-end
-EOF
 
