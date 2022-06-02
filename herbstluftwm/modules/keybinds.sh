@@ -1,4 +1,5 @@
-#!/bin/bash
+!/bin/bash
+
 
 
 ## WM Control Settings
@@ -7,7 +8,48 @@ hc keybind $Mod-Shift-r reload
 
 ## Program launching
 hc keybind $Mod-t spawn ${TERMINAL:-xfce4-terminal}
-hc keybind $Mod-space spawn dmenu_run_hlwm
+hc keybind $Mod-space spawn dmenu_run
+
+
+hc new_attr bool keys.my_user_mode_active false
+hc set_attr keys.my_user_mode_active false
+
+
+hc keybind $Mod-p keybind 2 chain --- \
+    spawn dmenu_run --- \
+    keyunbind 2
+
+
+"
+hc keybind $Mod-Shift-p chain -c- \
+        set_attr keys.my_user_mode_active toggle \
+        -c- \
+        and -a- compare keys.my_user_mode_active = true -a- \
+            keybind 2 spawn dmenu_run \
+        -c- \
+        and -a- compare keys.my_user_mode_active = false -a- \
+            keyunbind 2 
+"
+
+
+hc_keybind_hydra () {
+    local START_KEY="$1"
+    local NEXT_KEY="$2"
+    local HC_COMMAND="$3"
+    local HC_ATTR="$4"
+
+    hc keybind "$START_KEY" chain -c- \
+            set_attr "$HC_ATTR" toggle \
+            -c- \
+            and -a- compare "$HC_ATTR" = true -a- \
+                keybind "$NEXT_KEY" $HC_COMMAND \
+            -c- \
+            and -a- compare "$HC_ATTR" = false -a- \
+                keyunbind "$NEXT_KEY" 
+}
+
+
+hc_keybind_hydra "$Mod-Shift-p" 2 "spawn dmenu_run" "keys.my_user_mode_active"
 
 
 ## Frame Control
@@ -22,6 +64,20 @@ hc keybind $Mod-Shift-q remove
 
 # Resize frames
 rstep=0.02
+hc new_attr bool keys.my_resize_mode_active? false
+hc set_attr keys.my_resize_mode_active? false
+
+hc keybind $Mod-r chain \
+    --c-- set_attr "keys.my_resize_mode_active?" toggle \
+    --c-- and \
+        --a-- compare "keys.my_resize_mode_active?" = true \
+        --a-- keybind h resize left  +$rstep \
+        --a-- keybind j resize down  +$rstep \
+        --a-- keybind k resize up    +$rstep \
+        --a-- keybind l resize right +$rstep \
+    --c-- and \
+        --a-- compare "keys.my_resize_mode_active?" = false \
+        --a-- chain . keyunbind h . keyunbind j . keyunbind k . keyunbind l
 
 hc keybind $Mod-Left  resize left  +$rstep
 hc keybind $Mod-Down  resize down  +$rstep
