@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+
+[dev-packages]
+
+[scripts]
+autostart = "python autostart.py"
+mode_switch = "python mode_switch.py"
+
+
+[requires]
+python_version = "3.8"
+

@@ -116,6 +116,9 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# this adds user binaries to path
+PATH="$PATH:$HOME/.local/bin"
+export PATH
 
 # this lets you use my personal scripts as normal commands
 PATH="$PATH:$HOME/mine/myScripts"

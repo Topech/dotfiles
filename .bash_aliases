@@ -8,6 +8,5 @@ alias pu='pushd'
 alias po='popd'
 alias pls='sudo'
 alias ogvim=$(whereis vim)
-alias vim='nvim'
 
 mine="$HOME/mine"
