@@ -19,3 +19,5 @@ def configure():
     keybinds.setup()
 
     hc("unlock")
+
+    keybinds.modes.start_hook_handler()

@@ -1,4 +1,5 @@
-import os
+import subprocess
+import sys
 
 
 
@@ -7,9 +8,16 @@ def hc(*argument_list):
     argument_str = ""
     for arg in argument_list:
         argument_str += f"{arg} "
-    return os.system("herbstclient " + argument_str)
 
+    output = None
+    return_code = 0
+    try:
+        output = subprocess.check_output("herbstclient " + argument_str, shell=True)
+    except subprocess.CalledProcessError as error:
+        return_code = error.returncode
+        print(f"HC Error -- CMD: {error.cmd}\n\tRET: {return_code}", file=sys.stderr)
+    return output, return_code 
+        
 
-
-if __name__ == "__main__":
-    hc("reload")
+def hc_hook_handler(hook_name):
+    return subprocess.Popen(["herbstclient", "--idle", hook_name], stdout=subprocess.PIPE)

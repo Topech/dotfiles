@@ -1,5 +1,3 @@
-import enum
-
 from ..wrappers import hc
 from . import modes
 

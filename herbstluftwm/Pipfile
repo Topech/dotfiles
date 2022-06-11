@@ -9,7 +9,7 @@ name = "pypi"
 
 [scripts]
 autostart = "python autostart.py"
-mode_switch = "python mode_switch.py"
+key_hook_handler = "python key_hook_handler.py"
 
 
 [requires]

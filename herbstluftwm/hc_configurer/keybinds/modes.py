@@ -1,6 +1,6 @@
 import os
 
-from ..wrappers import hc
+from ..wrappers import hc, hc_hook_handler
 from .. import globals
 
 
@@ -15,7 +15,7 @@ def get_current_mode():
 
 
 def set_current_mode(new_mode):
-    hc("setenv", "HC_KEYBIND_MODE", new_mode.name)
+    os.environ["HC_KEYBIND_MODE"] = new_mode.name
 
 
 def mode_switch(new_mode_name):
@@ -31,13 +31,23 @@ class KeybindMode():
     def __init__(self, name, persistent=False, bindings_dict={}):
         self.name = name
         self.persistent = persistent
-        self.bindings_dict = bindings_dict
+        self.set_bindings(bindings_dict)
         mode_dict[name] = self
+
+    def set_bindings(self, bindings_dict):
+        self.bindings_dict = bindings_dict
+        self._activate_command_chain = ""
+        self._deactivate_command_chain = ""
+        chain_delim = "--c--"
+        for key in self.bindings_dict.keys():
+            activate_command = f"{chain_delim} keybind {key} emit_hook mode_execute {self.name} {key}"
+            self._activate_command_chain += " " + activate_command
+            deactivate_command = f"{chain_delim} keyunbind {key}"
+            self._deactivate_command_chain += " " + deactivate_command
 
     def activate(self):
         set_current_mode(self)
-        for key in self.bindings_dict.keys():
-            hc("keybind", key, f"spawn python {globals.hc_home}/key_command.py {key}")
+        hc("chain", self._activate_command_chain)
 
     def execute(self, key):
         command = self.bindings_dict[key]
@@ -49,8 +59,8 @@ class KeybindMode():
             mode_switch("Default")
 
     def deactivate(self):
-        for key in self.bindings_dict.keys():
-            hc("keyunbind", key)
+        hc("chain", self._deactivate_command_chain)
+
 
 
 
@@ -76,10 +86,10 @@ default_mode = KeybindMode(
     }
 )
 
-
 general_mode = KeybindMode(
     "General", 
     bindings_dict={
+        "Return":  "spawn dmenu_run",
         "h": "focus left",
         "j": "focus down",
         "k": "focus up",
@@ -144,7 +154,19 @@ resize_mode = KeybindMode(
 # media mode
 
 
-
-
 def setup():
     default_mode.activate()
+
+
+def start_hook_handler():
+    hook_handler = hc_hook_handler("mode_execute")
+    while True:
+        line = hook_handler.stdout.readline()
+    # for line in hook_handler.stdout:
+        if line:
+            line = line.decode('utf-8')
+            hook = line.replace("\n", "")
+            _, mode_name, key = hook.split("\t")
+            print(mode_name, key)
+            mode = mode_dict[mode_name]
+            mode.execute(key)
