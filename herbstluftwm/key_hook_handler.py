@@ -1,3 +1,4 @@
-from hc_configurer.keybinds import modes
+from hc_configurer import keybinder
 
-modes.start_hook_handler()
+keybinder.keybinds.default_mode.activate()
+keybinder.start_hook_handler()

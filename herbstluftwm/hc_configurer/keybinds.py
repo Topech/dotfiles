@@ -1,7 +1,7 @@
-from . import modes
-from .modes import KeybindMode
-from ..wrappers import hc
-
+from .keybinder import modes
+from .keybinder.modes import KeybindMode
+from .wrappers import hc
+from . import globals
 
 
 default_mode = KeybindMode(
@@ -27,7 +27,8 @@ default_mode = KeybindMode(
 )
 
 general_mode = KeybindMode(
-    "General", 
+    "General",
+    persistent=True,
     bindings_dict={
         # "Return":  "spawn dmenu_run",
         "h": "focus left",
@@ -45,9 +46,17 @@ general_mode = KeybindMode(
         "r": lambda: modes.mode_switch("Resize"),
         "s": lambda: modes.mode_switch("Split"),
         "m": lambda: modes.mode_switch("Move"),
-        modes.default_mode_escape_key: lambda: modes.mode_switch("Default"),
+        modes.default_mode_escape_key: modes.mode_switch_previous,
+        "Mod4-space": lambda: modes.mode_switch("Default"),
     }
 )
+
+general_tag_bindings = {}
+for index, tag in enumerate(globals.tags):
+    key = str(index)
+    general_tag_bindings[key] = f"use {index}"
+
+general_mode.update_bindings(general_tag_bindings)
 
 
 split_mode = KeybindMode(
@@ -57,8 +66,8 @@ split_mode = KeybindMode(
         "j": "split bottom 0.5",
         "k": "split top    0.5",
         "l": "split right  0.5",
-        "Mod4-r": lambda: modes.mode_switch("Default"),
-        modes.default_mode_escape_key: lambda: modes.mode_switch("Default"),
+        "Mod4-r": modes.mode_switch_previous,
+        modes.default_mode_escape_key: modes.mode_switch_previous,
     }
 )
 
@@ -71,10 +80,16 @@ move_mode = KeybindMode(
         "j": "shift down",
         "k": "shift up",
         "l": "shift right",
-        modes.default_mode_escape_key: lambda: modes.mode_switch("Default"),
+        modes.default_mode_escape_key: modes.mode_switch_previous,
     }
 )
 
+move_tag_bindings = {}
+for index, tag in enumerate(globals.tags):
+    key = str(index)
+    move_tag_bindings[key] = f"move {index}"
+
+move_mode.update_bindings(move_tag_bindings)
 
 stepsize = 0.02
 resize_mode = KeybindMode(
@@ -82,11 +97,11 @@ resize_mode = KeybindMode(
     persistent=True,
     non_keys_escape=True,
     bindings_dict={
-    "h": f"resize left  +{stepsize}",
-    "j": f"resize down  +{stepsize}",
-    "k": f"resize up    +{stepsize}",
-    "l": f"resize right +{stepsize}",
-    modes.default_mode_escape_key: lambda: modes.mode_switch("Default"),
+        "h": f"resize left  +{stepsize}",
+        "j": f"resize down  +{stepsize}",
+        "k": f"resize up    +{stepsize}",
+        "l": f"resize right +{stepsize}",
+        modes.default_mode_escape_key: modes.mode_switch_previous,
     }
 )
 

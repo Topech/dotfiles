@@ -4,7 +4,6 @@ from ..wrappers import hc
 
 
 
-
 all_keys = [
 "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "minus", "equal", 
 "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "backslash",
@@ -16,6 +15,7 @@ all_keys = [
 
 # store all KeybindModes in this dict
 mode_dict = {}
+mode_stack = list()
 
 
 def get_current_mode():
@@ -27,9 +27,20 @@ def set_current_mode(new_mode):
     os.environ["HC_KEYBIND_MODE"] = new_mode.name
 
 
+def mode_switch_previous():
+    current_mode = get_current_mode()
+    current_mode.deactivate()
+    previous_mode = mode_stack.pop()
+    if previous_mode:
+        previous_mode.activate()
+    else:
+        mode_dict["default"].activate()
+    
+
 def mode_switch(new_mode_name):
     current_mode = get_current_mode()
     current_mode.deactivate()
+    mode_stack.append(current_mode)
     new_mode = mode_dict[new_mode_name]
     new_mode.activate()
     
@@ -58,6 +69,15 @@ class KeybindMode():
             self.bindings_dict.update(bindings_dict)
         else:
             self.bindings_dict = bindings_dict
+
+        self._compile_binding_commands()
+
+    def update_bindings(self, updates_dict):
+        self.bindings_dict.update(updates_dict)
+        print(self.bindings_dict)
+        self._compile_binding_commands()
+
+    def _compile_binding_commands(self):
         self._activate_command_chain = ""
         self._deactivate_command_chain = ""
         chain_delim = "--c--"
@@ -67,6 +87,7 @@ class KeybindMode():
             self._activate_command_chain += " " + activate_command
             deactivate_command = f"{chain_delim} keyunbind {key}"
             self._deactivate_command_chain += " " + deactivate_command
+
 
     def activate(self):
         set_current_mode(self)
@@ -79,7 +100,7 @@ class KeybindMode():
         else:
             command()
         if self.persistent is False:
-            mode_switch("Default")
+            mode_switch_previous()
 
     def deactivate(self):
         hc("chain", self._deactivate_command_chain)

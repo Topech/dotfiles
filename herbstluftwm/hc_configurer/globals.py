@@ -6,7 +6,6 @@ hc_modules = f"{hc_home}/modules"
 
 
 tags = [
-    "0",
     "1",
     "2",
     "3",

@@ -1,5 +1,5 @@
 from .wrappers import hc
-from . import rules, visuals, workspace, keybinds
+from . import rules, visuals, workspace, keybinds, keybinder
 
 
 def configure():
@@ -20,4 +20,4 @@ def configure():
 
     hc("unlock")
 
-    keybinds.start_hook_handler()
+    keybinder.start_hook_handler()
