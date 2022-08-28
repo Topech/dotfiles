@@ -1,0 +1,9 @@
+transient/
+Org_Files/
+austo-save-list/
+elpa/
+projectile-bookmarks.eld
+
+.cache/
+.mc-lists.el
+*~

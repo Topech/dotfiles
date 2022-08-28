@@ -46,10 +46,12 @@ function link_dotfiles() {
 # -----
 # main functionality
 TARGET_DIR="$HOME"
-DOTFILES=".bashrc .bash_aliases .profile .vimrc .zshrc"
+DOTFILES=".bashrc .bash_aliases .profile .vimrc .zshrc .emacs.d"
 link_dotfiles "$TARGET_DIR" "$DOTFILES"
 
 
 TARGET_DIR="$HOME/.config"
 DOTFILES="herbstluftwm Xmodmap nvim/init.vim"
 link_dotfiles "$TARGET_DIR" "$DOTFILES"
+
+    

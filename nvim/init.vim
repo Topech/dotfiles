@@ -275,5 +275,4 @@ command! -bang -nargs=* FZFRg call fzf#vim#grep('rg --column --line-number --no-
 ""  --- FZF keybinds
 nnoremap <leader>ff :<C-u>FZF<CR>
 nnoremap <leader>fh :<C-u>FZF ~<CR>
-
 nnoremap <leader>fw :<C-u>FZFRg ~<CR>
