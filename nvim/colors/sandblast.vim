@@ -6,7 +6,7 @@ endif
 
 
 set background=dark
-let g:colors_name="scheme_test"
+let g:colors_name="sandblast"
 
 
 highlight Normal	ctermfg=223 guifg=#ffd7af

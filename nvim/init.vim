@@ -1,4 +1,4 @@
-colorscheme scheme_test
+colorscheme sandblast
 
 set wildmenu 
 set mouse=a
