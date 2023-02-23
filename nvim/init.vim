@@ -1,3 +1,5 @@
+colorscheme sandblast
+
 set wildmenu 
 set mouse=a
 
@@ -8,7 +10,7 @@ set foldmethod=marker
 
 "" --- File Specific settings
 syntax enable
-filetype plugin on
+" filetype plugin on
 filetype on
 
 
@@ -71,46 +73,6 @@ if has('termguicolors')
 endif
 
 
-""  --- Plugins:
-
-"  --- Plugin List
-call plug#begin('~/.config/nvim/plugged')
-" essentials
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-commentary'
-Plug 'mattn/emmet-vim'
-Plug 'airblade/vim-gitgutter'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'mileszs/ack.vim'
-Plug 'sonph/onehalf', { 'rtp': 'vim' }
-" file specifics
-Plug 'jalvesaq/Nvim-R', {'for' : 'r'}
-Plug 'sirtaj/vim-openscad', {'for': 'openscad'}
-Plug 'posva/vim-vue'
-call plug#end()
-
-
-colorscheme onehalfdark
-
-
-"  --- vim gitgutter
-set updatetime=250
-
-highlight GitGutterAdd    guifg=#009900 ctermfg=2
-highlight GitGutterChange guifg=#bbbb00 ctermfg=3
-highlight GitGutterDelete guifg=#ff2222 ctermfg=1
-
-let g:gitgutter_override_sign_column_highlight = 1
-highlight SignColumn guibg=NONE
-highlight SignColumn ctermbg=NONE
-
-
-"  --- FZF setup
-let $FZF_DEFAULT_COMMAND = 'rg --hidden --files -g !.git/'
-
-"  --- Keybinds
 
 "" --- Normal Leader Keybinds
 
@@ -123,6 +85,9 @@ nnoremap <silent> <expr> <leader><leader>o ':<C-u>call append(line("."), repeat(
 nnoremap <silent> <expr> <leader><leader>O ':<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>' . (v:count1 + 1)/2 . 'k'
 nnoremap <silent> <leader>o :<C-u>call append(line("."), repeat([""], v:count1))<CR>
 nnoremap <silent> <leader>O :<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>
+
+"  --- Colon Commands
+nnoremap <silent> <leader>; q:i
 
 "  --- Window keybinds
 " window control
@@ -175,104 +140,3 @@ nnoremap <silent> <leader>to :<C-u>tabonly<CR>
 nnoremap <silent> <leader>tp :<C-u>tabrewind<CR>
 
 
-""  --- emmet-vim keybinds
-" Emmet-vim  key  overrides
-" imap <leader>e, <plug>(emmet-expand-abbr)
-" nmap <leader>ee <plug>(emmet-expand-abbr)
-xmap <leader>ee <plug>(emmet-expand-abbr)
-nmap <leader>e, <plug>(emmet-expand-abbr)
-xmap <leader>e, <plug>(emmet-expand-abbr)
-" " imap <leader>e; <plug>(emmet-expand-word)
-nmap <leader>e; <plug>(emmet-expand-word)
-" imap <leader>eu <plug>(emmet-update-tag)
-nmap <leader>eu <plug>(emmet-update-tag)
-" imap <leader>ed <plug>(emmet-balance-tag-inward)
-nmap <leader>ed <plug>(emmet-balance-tag-inward)
-xmap <leader>ed <plug>(emmet-balance-tag-inward)
-" imap <leader>eD <plug>(emmet-balance-tag-outword)
-nmap <leader>eD <plug>(emmet-balance-tag-outword)
-xmap <leader>eD <plug>(emmet-balance-tag-outword)
-" imap <leader>en <plug>(emmet-move-next)
-nmap <leader>en <plug>(emmet-move-next)
-" imap <leader>eN <plug>(emmet-move-prev)
-nmap <leader>eN <plug>(emmet-move-prev)
-" imap <leader>ei <plug>(emmet-image-size)
-nmap <leader>ei <plug>(emmet-image-size)
-" imap <leader>eI <plug>(emmet-image-encode)
-nmap <leader>eI <plug>(emmet-image-encode)
-" imap <leader>e/ <plug>(emmet-toggle-comment)
-nmap <leader>e/ <plug>(emmet-toggle-comment)
-" imap <leader>ej <plug>(emmet-split-join-tag)
-nmap <leader>ej <plug>(emmet-split-join-tag)
-" imap <leader>ek <plug>(emmet-remove-tag)
-nmap <leader>ek <plug>(emmet-remove-tag)
-" imap <leader>ea <plug>(emmet-anchorize-url)
-nmap <leader>ea <plug>(emmet-anchorize-url)
-" imap <leader>eA <plug>(emmet-anchorize-summary)
-nmap <leader>eA <plug>(emmet-anchorize-summary)
-" imap <leader>em <plug>(emmet-merge-lines)
-xmap <leader>em <plug>(emmet-merge-lines)
-xmap <leader>ec <plug>(emmet-code-pretty)
-
-" moves to end of line then expands emmet abbreviation.
-" (end of line needed to expand whole abbreviation)
-nmap <leader>ee g_<plug>(emmet-expand-abbr)
-
-
-""  --- vim-surround keybinds
-" override defaults to work with leader.
-" all capitalised normal maps put the surrounded part on a new line
-" (except sW)
-let g:surround_no_mappings = 1
-
-nmap <leader>sd  <Plug>Dsurround
-
-" change surrounding
-nmap <leader>sc  <Plug>Csurround
-nmap <leader>sC  <Plug>CSurround
-
-" add surrounding to text object
-nmap <leader>sa  <Plug>Ysurround
-nmap <leader>sA  <Plug>YSurround
-
-" add surrounding to line
-nmap <leader>sl  <Plug>Yssurround
-nmap <leader>sL  <Plug>YSsurround
-
-" add surrounding to word
-nmap <leader>sw  <Plug>Ysurroundiw
-nmap <leader>sW  <Plug>YsurroundiW
-
-" add sourounding to visual selection
-xmap <leader>s   <Plug>VSurround
-xmap <leader>gs  <Plug>VgSurround
-
-""  --- gitgutter keybinds
-let g:gitgutter_map_keys = 0
-
-" Jump between hunks
-nmap <leader>gn <Plug>(GitGutterNextHunk)
-nmap <leader>gp <Plug>(GitGutterPrevHunk)
-
-" Hunk-add and hunk-revert for chunk staging
-nmap <leader>ga <Plug>(GitGutterStageHunk)
-nmap <leader>gu <Plug>(GitGutterUndoHunk)
-
-
-"  --- FZF rg
-" --column: Show column number
-" --line-number: Show line number
-" --no-heading: Do not show file headings in results
-" --fixed-strings: Search term as a literal string
-" --ignore-case: Case insensitive search
-" --no-ignore: Do not respect .gitignore, etc...
-" --hidden: Search hidden files and folders
-" --follow: Follow symlinks
-" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
-" --color: Search color options
-command! -bang -nargs=* FZFRg call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
-
-""  --- FZF keybinds
-nnoremap <leader>ff :<C-u>FZF<CR>
-nnoremap <leader>fh :<C-u>FZF ~<CR>
-nnoremap <leader>fw :<C-u>FZFRg ~<CR>

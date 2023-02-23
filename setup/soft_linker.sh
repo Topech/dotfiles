@@ -51,7 +51,11 @@ link_dotfiles "$TARGET_DIR" "$DOTFILES"
 
 
 TARGET_DIR="$HOME/.config"
-DOTFILES="herbstluftwm Xmodmap nvim/init.vim"
+DOTFILES="herbstluftwm Xmodmap"
 link_dotfiles "$TARGET_DIR" "$DOTFILES"
 
     
+TARGET_DIR="$HOME/.config"
+DOTFILES="nvim/init.vim nvim/syntax nvim/ftplugin nvim/ftdetect nvim/colors nvim/after"
+link_dotfiles "$TARGET_DIR" "$DOTFILES"
+
