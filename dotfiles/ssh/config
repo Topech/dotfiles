@@ -1,0 +1,11 @@
+Include enco-ssh/*
+Include personal-config/*
+
+Host github.com
+    identityFile ~/.ssh/git-keys/topech-github
+    Hostname ssh.github.com
+    User git
+    Port 443
+    AddressFamily inet  # disable ipv6, only ipv4
+
+

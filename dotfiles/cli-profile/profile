@@ -1,0 +1,9 @@
+# TODO: move this to dotfiles as a separate file
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/Ben.Longbottom/.lmstudio/bin"
+# End of LM Studio CLI section
+
+
+# for pipx
+export PATH="$PATH:$HOME/.local/bin"
+

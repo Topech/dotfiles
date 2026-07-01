@@ -1,0 +1,60 @@
+[core]
+    editor = vim
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true    # use n and N to move between diff sections
+    theme = dracula
+    line-numbers = true
+
+    # delta detects terminal colors automatically; set one of these to disable auto-detection
+    # dark = true
+    # light = true
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
+
+[init]
+    defaultBranch = main
+
+
+# [includeIf "gitdir:~/Repos/topech/**"]
+#     path = ~/.config/git/topech-config
+
+[includeIf "hasconfig:remote.*.url:git@github.com:topech/*/**"]
+    path = ~/.config/git/topech-config
+
+[includeIf "hasconfig:remote.*.url:git@github.com:enco-dev/*/**"]
+    path = ~/.config/git/ENCO-github-config
+
+[includeIf "hasconfig:remote.*.url:git@github.com:fmgl-internal/**"]
+    path = ~/.config/git/FMG-github-config
+
+[includeIf "hasconfig:remote.*.url:git@github.com:fmgl-specialised/**"]
+    path = ~/.config/git/FMG-github-config
+
+
+[alias]
+    s = status
+    l = log --oneline
+    ll = log
+    lf = log --oneline --name-only
+    g = log  --graph  '--pretty=format:%C(auto)%h <%aN> %d %C(dim normal)(%cr)%Creset%n %s%n'
+    ga = g --all
+    gb = ga --simplify-by-decoration '--pretty=format:%C(auto)%h <%aN> %d %C(dim normal)(%cr)%Creset'
+    gf = g --name-status
+    df = diff --name-status
+    s- = switch -
+
+[advice]
+    pushNonFastForward =  false
+    statusHints =  false
+
+[rerere]
+	enabled = true
