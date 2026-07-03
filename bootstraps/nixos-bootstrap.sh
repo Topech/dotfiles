@@ -8,7 +8,7 @@ nix-env --install git
 
 
 
-BOOTSTRAP_DIR="/tmp/dotfiles-bootstap"
+BOOTSTRAP_DIR="/tmp/dotfiles-bootstrap"
 
 mkdir -p "$BOOTSTRAP_DIR"  # NOTE: -p to continue even if already exists
 
