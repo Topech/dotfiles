@@ -22,6 +22,7 @@ nix-shell -p git --run "git clone --depth 1 --branch ${REPO_BRANCH} ${DOTFILES_R
 
 
 
+set +x  
 echo 'System bootstrapped with temporary dotfiles repo at:'
 printf "\t${BOOTSTRAP_DIR}/${REPO}"
 
