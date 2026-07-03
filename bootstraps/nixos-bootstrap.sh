@@ -18,7 +18,7 @@ REPO_BRANCH=master
 DOTFILES_REPO_URL="https://github.com/${REPO_OWNER}/${REPO}"
 
 cd "$BOOTSTRAP_DIR"
-nix-shell git --run "git clone --depth 1 --branch ${REPO_BRANCH} ${DOTFILES_REPO_URL}"
+nix-shell -p git --run "git clone --depth 1 --branch ${REPO_BRANCH} ${DOTFILES_REPO_URL}"
 
 
 
