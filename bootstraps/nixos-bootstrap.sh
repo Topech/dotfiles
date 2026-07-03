@@ -25,7 +25,7 @@ cd "$BOOTSTRAP_DIR"
 git clone  \
 	--depth 1  \
 	--branch "${REPO_BRANCH}"  \
-	${DOTFILES_REPO_URL}"
+	"${DOTFILES_REPO_URL}"
 
 
 echo 'System bootstrapped with temporary dotfiles repo at:'
