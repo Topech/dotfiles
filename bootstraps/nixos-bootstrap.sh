@@ -10,7 +10,7 @@ nix-env --install git
 
 BOOTSTRAP_DIR="/tmp/dotfiles-bootstap"
 
-mkdir "$BOOTSTRAP_DIR"
+mkdir -p "$BOOTSTRAP_DIR"  # NOTE: -p to continue even if already exists
 
 
 
@@ -19,7 +19,6 @@ REPO=dotfiles
 REPO_BRANCH=master
 
 DOTFILES_REPO_URL="https://github.com/${REPO_OWNER}/${REPO}"
-
 
 cd "$BOOTSTRAP_DIR"
 git clone  \
