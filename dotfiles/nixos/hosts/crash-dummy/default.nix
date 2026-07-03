@@ -29,4 +29,7 @@
   environment.systemPackages = with pkgs; [
     cowsay
   ];
+
+  # Stop VM going to sleep / suspending
+  powerManagement.enable = false;
 }
