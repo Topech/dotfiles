@@ -28,5 +28,5 @@ git clone  \
 
 
 echo 'System bootstrapped with temporary dotfiles repo at:'
-echo \t${BOOTSTRAP_DIR}/${REPO}
+printf "\t${BOOTSTRAP_DIR}/${REPO}"
 
