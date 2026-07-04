@@ -6,7 +6,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/audio.nix
-    ../../modules/virtualbox-guest.nix
+    ../../modules/utm-guest.nix
     ../../modules/gnome-wayland.nix
   ];
 
