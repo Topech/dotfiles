@@ -5,6 +5,7 @@
 
   imports = [
     ./hardware-configuration.nix
+    ./boot-bugfix.nix
     ../../modules/gnome-wayland.nix
     ../../modules/ssh-access.nix
   ];
