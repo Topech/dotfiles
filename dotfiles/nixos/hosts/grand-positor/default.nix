@@ -11,10 +11,10 @@
 
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.voldwart = {
+  users.users.grumpert = {
     isNormalUser = true;
     initialPassword = "password";
-    description = "voldwart";
+    description = "grumpert";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
     #  thunderbird
