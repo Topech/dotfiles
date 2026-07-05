@@ -7,7 +7,8 @@
     ./hardware-configuration.nix
     ../../modules/audio.nix
     ../../modules/utm-guest.nix
-    ../../modules/gnome-wayland.nix
+    # ../../modules/gnome-wayland.nix
+    ../../modules/ssh-access.nix
   ];
 
 
@@ -18,6 +19,9 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
     #  thunderbird
+    ];
+    openssh.authorizedKeys.keys = [
+     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG+xzvvno+TTRw+5dpZk/s26julOX+nNkF5t5h/rxhnZ local-vm"
     ];
   };
 
