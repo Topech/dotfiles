@@ -6,6 +6,6 @@
 
   boot.loader.grub = {
     enable = true;
-    device = "/dev/sdb";
+    device = "/dev/disk/by-id/ata-ST500LM021-1KJ152_W622D956";
   };
 }

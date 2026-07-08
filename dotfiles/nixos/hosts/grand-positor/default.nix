@@ -8,6 +8,8 @@
     ./boot-bugfix.nix
     ../../modules/gnome-wayland.nix
     ../../modules/ssh-access.nix
+    ../../modules/local-llm.nix
+    ../../modules/nvidia-geforce-gtx-1650.nix
   ];
 
 
