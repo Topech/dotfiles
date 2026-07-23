@@ -8,7 +8,7 @@
     ./hardware-configuration.nix
     ../../modules/audio.nix
     ../../modules/utm-guest.nix
-    ../../modules/gnome-wayland.nix
+    ../../modules/gnome/gnome-wayland.nix
     ../../modules/ssh-access.nix
   ];
 

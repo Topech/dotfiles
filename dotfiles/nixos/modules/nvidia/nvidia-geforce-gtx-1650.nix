@@ -26,4 +26,5 @@
     # the driver package
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
+
 }
