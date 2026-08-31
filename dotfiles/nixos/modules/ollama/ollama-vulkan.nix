@@ -3,7 +3,7 @@
 {
   services.ollama = {
     enable = true;
-    package = pkgs.ollama-vulkan;
+    package = pkgs.unstable.ollama-vulkan;
     environmentVariables = {
      # general config
      OLLAMA_NO_CLOUD = "1";
