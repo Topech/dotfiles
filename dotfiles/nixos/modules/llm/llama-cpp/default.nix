@@ -7,7 +7,7 @@
 
   services.llama-cpp = {
     enable = true;
-    package = pkgs.llama-cpp-vulkan;    
+    package = pkgs.llama-cpp-rocm;
 
     modelsDir = config.llm.sharedModels.dir;
     # model = "${config.llm.sharedModelsDir}/current.gguf";
@@ -31,7 +31,7 @@
       "qwen3.5-35b-a3b-q4-unsloth" = {
         hf-repo = "unsloth/Qwen3.5-35B-A3B-GGUF";
         hf-file = "Qwen3.5-35B-A3B-Q4_K_M.gguf";
-        n-gpu-layers = 10;  # ~ 25% gpu, 10/40 layers
+        n-gpu-layers = 25;  # 40 layers
       };
     };
 
