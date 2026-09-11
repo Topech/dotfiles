@@ -34,7 +34,7 @@
         hf-file = "Qwen3.5-35B-A3B-Q4_K_M.gguf";
         # MoE specifics
         n-gpu-layers = 999;  # 40 layers, offload all 'standard' layers to gpu
-        n-cpu-moe = 14;  # offload some experts' layers to CPU. Increase if OOM (recommended 14)
+        n-cpu-moe = 15;  # offload some experts' layers to CPU. Increase if OOM (recommended 14)
       };
 
       "qwen3.6-35b-a3b-ud-q4-unsloth" = {
@@ -42,7 +42,7 @@
         hf-file = "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf";
         # MoE specifics
         n-gpu-layers = 999;  # 40 layers, offload all 'standard' layers to gpu
-        n-cpu-moe = 14;  # offload some experts' layers to CPU. Increase if OOM (recommended 14)
+        n-cpu-moe = 15;  # offload some experts' layers to CPU. Increase if OOM (recommended 14)
       };
     };
 

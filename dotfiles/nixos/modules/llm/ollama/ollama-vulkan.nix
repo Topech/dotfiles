@@ -7,7 +7,7 @@
 
 
   services.ollama = {
-    enable = true;
+    enable = false;  # NOTE: disabled for now
     package = pkgs.unstable.ollama-vulkan;
     
     # NOTE: ollama uses different storage convention, so let it manage its own models
