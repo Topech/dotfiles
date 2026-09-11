@@ -15,8 +15,6 @@
   environment.systemPackages = with pkgs; [
     vim
     git
+    htop
   ];
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
 }
