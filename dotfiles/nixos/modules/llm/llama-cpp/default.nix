@@ -11,6 +11,7 @@
 
     modelsDir = config.llm.sharedModels.dir;
     # model = "${config.llm.sharedModelsDir}/current.gguf";
+
     # NOTE: NEXT RELEASE: you will config in an ini file.
     modelsPreset =  {
       "*" = {
@@ -31,7 +32,17 @@
       "qwen3.5-35b-a3b-q4-unsloth" = {
         hf-repo = "unsloth/Qwen3.5-35B-A3B-GGUF";
         hf-file = "Qwen3.5-35B-A3B-Q4_K_M.gguf";
-        n-gpu-layers = 25;  # 40 layers
+        # MoE specifics
+        n-gpu-layers = 999;  # 40 layers, offload all 'standard' layers to gpu
+        n-cpu-moe = 14;  # offload some experts' layers to CPU. Increase if OOM (recommended 14)
+      };
+
+      "qwen3.6-35b-a3b-ud-q4-unsloth" = {
+        hf-repo = "unsloth/Qwen3.6-35B-A3B-GGUF";
+        hf-file = "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf";
+        # MoE specifics
+        n-gpu-layers = 999;  # 40 layers, offload all 'standard' layers to gpu
+        n-cpu-moe = 14;  # offload some experts' layers to CPU. Increase if OOM (recommended 14)
       };
     };
 
