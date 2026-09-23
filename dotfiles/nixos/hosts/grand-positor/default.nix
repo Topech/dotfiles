@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   networking.hostName = "grand-positor";
@@ -18,6 +18,7 @@
     ../../modules/wol.nix
   ];
   
+  wol.net_interface = "enp5s0";
 
   # Install firefox.
   programs.firefox.enable = true;
