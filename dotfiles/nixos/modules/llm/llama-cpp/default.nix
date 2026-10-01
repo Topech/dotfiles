@@ -15,17 +15,30 @@
     # NOTE: NEXT RELEASE: you will config in an ini file.
     modelsPreset =  {
       "*" = {
-        cache-type-k = "q8_0";
-        cache-type-v = "q8_0";
+        # cache-type-k = "q8_0";
+        # cache-type-v = "q8_0";
+        cache-type-k = "f16";
+        cache-type-v = "f16";
         flash-attn = "true";  # stops degradation using quantised cache
         ctx-size = 40960;
         n-gpu-layers = -1;
         models-max = 1;
+
+        split-mode = "tensor";
+        tensor-split = "1,1";
+        spec-type = "draft-mtp";
+        spec-draft-n-max = 2;
       };
 
       "qwen3.8-27b-q3-unsloth" = {
         hf-repo = "unsloth/Qwen3.8-27B-GGUF";
         hf-file = "Qwen3.8-27B-UD-IQ3_XXS.gguf";
+        ctx-size = 81920;
+      };
+
+      "qwen3.8-27b-q5-unsloth" = {
+        hf-repo = "unsloth/Qwen3.8-27B-GGUF";
+        hf-file = "Qwen3.8-27B-UD-Q5_K_M.gguf";
         ctx-size = 81920;
       };
 
@@ -42,7 +55,7 @@
         hf-file = "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf";
         ctx-size = 81920;
         # MoE specifics
-        n-gpu-layers = 999;  # 40 layers, offload all 'standard' layers to gpu
+        n-gpu-layers = 25;  # 40 layers, offload all 'standard' layers to gpu
         n-cpu-moe = 15;  # offload some experts' layers to CPU. Increase if OOM (recommended 14)
       };
     };
