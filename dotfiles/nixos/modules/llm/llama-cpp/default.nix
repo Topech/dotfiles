@@ -13,52 +13,84 @@
     # model = "${config.llm.sharedModelsDir}/current.gguf";
 
     # NOTE: NEXT RELEASE: you will config in an ini file.
-    modelsPreset =  {
-      "*" = {
-        # cache-type-k = "q8_0";
-        # cache-type-v = "q8_0";
-        cache-type-k = "f16";
-        cache-type-v = "f16";
-        flash-attn = "true";  # stops degradation using quantised cache
-        ctx-size = 40960;
-        n-gpu-layers = -1;
-        models-max = 1;
+    modelsPreset = let
+        _128k_tokens = 128 * 1024; 
+        _100k_tokens = 100 * 1024;
+        _80k_tokens = 80 * 1024;
+        _60k_tokens = 60 * 1024;
+        _40k_tokens = 40 * 1024;
+      in {
+        "*" = {
+          # cache-type-k = "q8_0";
+          # cache-type-v = "q8_0";
+          cache-type-k = "f16";
+          cache-type-v = "f16";
+          flash-attn = "true";  # stops degradation using quantised cache
+          ctx-size = _40k_tokens;
+          n-gpu-layers = -1;
+          models-max = 1;
 
-        split-mode = "tensor";
-        tensor-split = "1,1";
-        spec-type = "draft-mtp";
-        spec-draft-n-max = 2;
-      };
+          split-mode = "tensor";
+          tensor-split = "1,1";
 
-      "qwen3.8-27b-q3-unsloth" = {
-        hf-repo = "unsloth/Qwen3.8-27B-GGUF";
-        hf-file = "Qwen3.8-27B-UD-IQ3_XXS.gguf";
-        ctx-size = 81920;
-      };
+          ## NOTE: blows out RAM at large context models.
+          # spec-type = "draft-mtp";
+          # spec-draft-n-max = 2;
+        };
 
-      "qwen3.8-27b-q5-unsloth" = {
-        hf-repo = "unsloth/Qwen3.8-27B-GGUF";
-        hf-file = "Qwen3.8-27B-UD-Q5_K_M.gguf";
-        ctx-size = 81920;
-      };
+        "qwen3.8-27b-q4-unsloth-with-draft" = {
+          alias = "default";
+          hf-repo = "unsloth/Qwen3.8-27B-GGUF";
+          hf-file = "Qwen3.8-27B-UD-Q4_K_M.gguf";
+          ctx-size = _100k_tokens;
 
-      "qwen3.5-35b-a3b-q4-unsloth" = {
-        hf-repo = "unsloth/Qwen3.5-35B-A3B-GGUF";
-        hf-file = "Qwen3.5-35B-A3B-Q4_K_M.gguf";
-        # MoE specifics
-        n-gpu-layers = 999;  # 40 layers, offload all 'standard' layers to gpu
-        n-cpu-moe = 15;  # offload some experts' layers to CPU. Increase if OOM (recommended 14)
-      };
+          # spec-type = "draft-simple";
+          # hf-repo-draft = "Qwen/Qwen3-1.7B-GGUF:Q8_0";
+          # spec-draft-n-max = 4;
 
-      "qwen3.6-35b-a3b-ud-q4-unsloth" = {
-        hf-repo = "unsloth/Qwen3.6-35B-A3B-GGUF";
-        hf-file = "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf";
-        ctx-size = 81920;
-        # MoE specifics
-        n-gpu-layers = 25;  # 40 layers, offload all 'standard' layers to gpu
-        n-cpu-moe = 15;  # offload some experts' layers to CPU. Increase if OOM (recommended 14)
+          spec-type = "draft-mtp";
+          # hf-repo-draft = "Qwen/Qwen3-1.7B-GGUF:Q8_0";
+          spec-draft-n-max = 4;
+        };
+
+        "qwen3.8-27b-q3-unsloth" = {
+          hf-repo = "unsloth/Qwen3.8-27B-GGUF";
+          hf-file = "Qwen3.8-27B-UD-IQ3_XXS.gguf";
+          ctx-size = _128k_tokens;
+        };
+
+        "qwen3.8-27b-q4-unsloth" = {
+          hf-repo = "unsloth/Qwen3.8-27B-GGUF";
+          hf-file = "Qwen3.8-27B-UD-Q4_K_M.gguf";
+          ctx-size = _100k_tokens;
+        };
+
+        "qwen3.8-27b-q5-unsloth" = {
+          hf-repo = "unsloth/Qwen3.8-27B-GGUF";
+          hf-file = "Qwen3.8-27B-UD-Q5_K_M.gguf";
+          ctx-size = _100k_tokens;
+        };
+
+        "qwen3.5-35b-a3b-q4-unsloth" = {
+          hf-repo = "unsloth/Qwen3.5-35B-A3B-GGUF";
+          hf-file = "Qwen3.5-35B-A3B-Q4_K_M.gguf";
+          ctx-size = _80k_tokens;
+          # MoE specifics
+          split-mode = "layer";
+          n-gpu-layers = 25;  # 40 layers, offload all 'standard' layers to gpu
+          n-cpu-moe = 15;  # offload some experts' layers to CPU. Increase if OOM (recommended 14)
+        };
+
+        "qwen3.6-35b-a3b-ud-q4-unsloth" = {
+          hf-repo = "unsloth/Qwen3.6-35B-A3B-GGUF";
+          hf-file = "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf";
+          ctx-size = _80k_tokens;
+          # MoE specifics
+          split-mode = "layer";
+          n-gpu-layers = 25;  # 40 layers, offload all 'standard' layers to gpu
+          n-cpu-moe = 15;  # offload some experts' layers to CPU. Increase if OOM (recommended 14)
+        };
       };
-    };
 
     host = "127.0.0.1";
     port = 8080;
