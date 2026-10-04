@@ -44,13 +44,15 @@
           hf-file = "Qwen3.8-27B-UD-Q4_K_M.gguf";
           ctx-size = _100k_tokens;
 
+          split-mode = "tensor";
+
           # spec-type = "draft-simple";
           # hf-repo-draft = "Qwen/Qwen3-1.7B-GGUF:Q8_0";
           # spec-draft-n-max = 4;
 
           spec-type = "draft-mtp";
           # hf-repo-draft = "Qwen/Qwen3-1.7B-GGUF:Q8_0";
-          spec-draft-n-max = 4;
+          spec-draft-n-max = 4;  # tensor split: 4 was good @100k tokens, 8 crashed at ~71k tokens?
         };
 
         "qwen3.8-27b-q3-unsloth" = {
@@ -92,11 +94,15 @@
         };
       };
 
-    host = "127.0.0.1";
-    port = 8080;
 
- 
-    extraFlags = [ ];
+    host = "0.0.0.0";
+    port = 8080;
+    openFirewall = true; 
+    
+    extraFlags = [
+      "--metrics"
+      "--ctx-checkpoints" "16"  # bug with tensor split causes crash at high ctx lengths
+    ];
   };
 
 
