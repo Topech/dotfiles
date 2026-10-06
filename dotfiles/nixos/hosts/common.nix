@@ -16,5 +16,6 @@
     vim
     git
     htop
+    jq
   ];
 }
