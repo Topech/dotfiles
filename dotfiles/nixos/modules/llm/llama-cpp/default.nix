@@ -19,6 +19,7 @@
         _80k_tokens = 80 * 1024;
         _60k_tokens = 60 * 1024;
         _40k_tokens = 40 * 1024;
+        _1k_tokens = 1024;
       in {
         "*" = {
           # cache-type-k = "q8_0";
@@ -38,21 +39,53 @@
           # spec-draft-n-max = 2;
         };
 
+        "qwen3.8-27b-q5xl-unsloth-with-draft" = {
+          hf-repo = "unsloth/Qwen3.8-27B-GGUF";
+          hf-file = "Qwen3.8-27B-UD-Q5_K_XL.gguf";
+          ctx-size = 100 * _1k_tokens;
+
+          spec-type = "draft-mtp";
+          # tensor doesnt like mtp
+          split-mode = "layer";
+          # we can use quantised kv if not tensor split!
+          cache-type-k = "q8_0";
+          cache-type-v = "q8_0";
+          spec-draft-n-max = 2; # 3 ~ 16-22 tok/sec
+          parallel = 1;  # without this it crashes way more.
+        };
+        "qwen3.8-27b-q5-unsloth-with-draft" = {
+          hf-repo = "unsloth/Qwen3.8-27B-GGUF";
+          hf-file = "Qwen3.8-27B-UD-Q5_K_M.gguf";
+          ctx-size = 120 * _1k_tokens;
+
+          spec-type = "draft-mtp";
+          # tensor doesnt like mtp
+          split-mode = "layer";
+          # we can use quantised kv if not tensor split!
+          cache-type-k = "q8_0";
+          cache-type-v = "q8_0";
+          spec-draft-n-max = 2; # 3 ~ 16-22 tok/sec
+          parallel = 1;  # without this it crashes way more.
+        };
+
         "qwen3.8-27b-q4-unsloth-with-draft" = {
           alias = "default";
           hf-repo = "unsloth/Qwen3.8-27B-GGUF";
           hf-file = "Qwen3.8-27B-UD-Q4_K_M.gguf";
-          ctx-size = _100k_tokens;
-
-          split-mode = "tensor";
+          ctx-size = 120 * _1k_tokens;
 
           # spec-type = "draft-simple";
           # hf-repo-draft = "Qwen/Qwen3-1.7B-GGUF:Q8_0";
           # spec-draft-n-max = 4;
 
           spec-type = "draft-mtp";
-          # hf-repo-draft = "Qwen/Qwen3-1.7B-GGUF:Q8_0";
-          spec-draft-n-max = 4;  # tensor split: 4 was good @100k tokens, 8 crashed at ~71k tokens?
+          # tensor doesnt like mtp
+          split-mode = "layer";
+          # we can use quantised kv if not tensor split!
+          cache-type-k = "q8_0";
+          cache-type-v = "q8_0";
+          spec-draft-n-max = 3;
+          parallel = 1;  # without this it crashes way more.
         };
 
         "qwen3.8-27b-q3-unsloth" = {
@@ -101,6 +134,7 @@
     
     extraFlags = [
       "--metrics"
+      # "--verbose"
       "--ctx-checkpoints" "16"  # bug with tensor split causes crash at high ctx lengths
     ];
   };
