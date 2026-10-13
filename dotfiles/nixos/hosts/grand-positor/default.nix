@@ -24,6 +24,8 @@
   
   wol.net_interface = "enp5s0";
 
+  mainUsername = "grumpert";
+
   # Install firefox.
   programs.firefox.enable = true;
 
