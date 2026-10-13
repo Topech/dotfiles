@@ -40,6 +40,25 @@
           ./hosts/grand-positor
         ];
       };
+
+      fielder = nixpkgs.lib.nixosSystem {
+        modules = [
+          {
+            nixpkgs.overlays = [
+              (final: prev: {
+                unstable = import nixpkgs-unstable {
+                  system = final.system;
+                };
+              })
+            ];
+          }
+          # ---
+          ./hosts/common.nix
+          ./configuration.nix
+          # ---
+          ./hosts/fielder
+        ];
+      };
     };
   };
 }
