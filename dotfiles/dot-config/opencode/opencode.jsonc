@@ -1,0 +1,447 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  // default model
+  "model": "grand-positor-llama-cpp/qwen3.8-27b-q3-unsloth",
+  "small_model": "local-lmstudio/qwen-3.5-4b",
+
+  "plugins": [
+    "@debugtalk/opencode-dap"
+  ],
+
+  "agent": {
+    "build": {
+      "mode": "primary"
+    },
+    "plan": {
+      "mode": "primary"
+    }
+  },
+
+
+  "disabled_providers": [],
+
+  "provider": {
+    
+    "local-vllm": {
+      "name": "Local VLLM (LH-VLLM)",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://localhost:8000/v1"
+      },
+      "models": {
+        "qwen-3.5-0.8b": {
+          "id": "Qwen/Qwen3.5-0.8B",
+          "name": "(LH-VLLM) Qwen 3.5 0.8B",
+          "options": { "temperature": 0.2 }
+        },
+        "qwen-3.5-4b": {
+          "id": "Qwen/Qwen3.5-4B",
+          "name": "(LH-VLLM) Qwen 3.5 4B",
+          "options": { "temperature": 0.2 }
+        },
+        "qwen-3.5-9b": {
+          "id": "Qwen/Qwen3.5-9B",
+          "name": "(LH-VLLM) Qwen 3.5 9B",
+          "options": { "temperature": 0.2 }
+        }
+      }
+    },
+
+    "local-ollama": {
+      "name": "Local Ollama (LH-OL)",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://localhost:11434/v1"
+      },
+      "models": {
+        "gemma4-e2b": {
+          "id": "Gemma4:e2b",
+          "name": "(LH-OL) Gemma4 E2B",
+          "attachment": true,
+          "modalities": {
+            "input": ["text", "image"],
+            "output": ["text"]
+          },
+          "options": {
+            "temperature": 0.2  // be consistent by default
+          },
+          "variants": {
+            // NOTE: variants seems to be within the default "options" section?
+            "high": {
+              "reasoningEffort": "high"
+            },
+            "medium": {
+              "reasoningEffort": "medium"
+            },
+            "low": {
+              "reasoningEffort": "low"
+            },
+            "no-reasoning": {
+              "reasoningEffort": "none"
+            },
+            "creative": {
+              "reasoningEffort": "high",
+              "temperature": 1
+            }
+          }
+        },
+        "gemma4-e4b": {
+          "id": "Gemma4:e4b",
+          "name": "(LH-OL) Gemma4 E4B",
+          "attachment": true,
+          "modalities": {
+            "input": ["text", "image"],
+            "output": ["text"]
+          },
+          "options": {
+            "temperature": 0.2,
+          },
+          "variants": {
+            // NOTE: variants seems to be within the default "options" section?
+            "high": {
+              "reasoningEffort": "xhigh"
+            },
+            "medium": {
+              "reasoningEffort": "medium"
+            },
+            "low": {
+              "reasoningEffort": "low"
+            },
+            "no-reasoning": {
+              "reasoningEffort": "none"
+            },
+            "creative": {
+              "reasoningEffort": "high",
+              "temperature": 1
+            }
+          }
+        },
+        "gemma4-12b": {
+          "id": "Gemma4:12b",
+          "name": "(LH-OL) Gemma4 12B",
+          "attachment": true,
+          "modalities": {
+            "input": ["text", "image"],
+            "output": ["text"]
+          },
+          "options": {
+            "temperature": 0.2,
+          },
+          "variants": {
+            // NOTE: variants seems to be within the default "options" section?
+            "high": {
+              "reasoningEffort": "high"
+            },
+            "medium": {
+              "reasoningEffort": "medium"
+            },
+            "low": {
+              "reasoningEffort": "low"
+            },
+            "no-reasoning": {
+              "reasoningEffort": "none"
+            },
+            "creative": {
+              "reasoningEffort": "high",
+              "temperature": 1
+            }
+          }
+        }
+      }
+    },
+
+    "grand-positor-llama-cpp": {
+      "name": "Grand Positor - Llama-cpp (GP-LL)",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://localhost:8080/v1"
+      },
+      "models": {
+        "qwen3.8-27b-q5-unsloth": {
+          "id": "qwen3.8-27b-q5-unsloth",
+          "name": "(GP-LL) qwen 3.8 27b q5 unsloth",
+          "attachment": true,
+          "modalities": {
+            "input": ["text", "image"],
+            "output": ["text"]
+          },
+          "options": {
+            "temperature": 0.2  // be consistent by default
+          },
+          "variants": {
+            "programming": {
+              "temperature": 0.2
+            },
+            "creative": {
+              "temperature": 1
+            }
+          }
+        },
+        "qwen3.8-27b-q4-with-draft": {
+          "id": "qwen3.8-27b-q4-unsloth-with-draft",
+          "name": "(GP-LL) qwen 3.8 27b q4 with draft",
+          "attachment": true,
+          "modalities": {
+            "input": ["text", "image"],
+            "output": ["text"]
+          },
+          "options": {
+            "temperature": 0.2  // be consistent by default
+          },
+          "variants": {
+            "programming": {
+              "temperature": 0.2
+            },
+            "creative": {
+              "temperature": 1
+            }
+          }
+        },
+        "qwen3.8-27b-q5xl-with-draft": {
+          "id": "qwen3.8-27b-q5xl-unsloth-with-draft",
+          "name": "(GP-LL) qwen 3.8 27b q5-xl with draft",
+          "attachment": true,
+          "modalities": {
+            "input": ["text", "image"],
+            "output": ["text"]
+          },
+          "options": {
+            "temperature": 0.2  // be consistent by default
+          },
+          "variants": {
+            "programming": {
+              "temperature": 0.2
+            },
+            "creative": {
+              "temperature": 1
+            }
+          }
+        },
+        "qwen3.8-27b-q5-with-draft": {
+          "id": "qwen3.8-27b-q5-unsloth-with-draft",
+          "name": "(GP-LL) qwen 3.8 27b q5 with draft",
+          "attachment": true,
+          "modalities": {
+            "input": ["text", "image"],
+            "output": ["text"]
+          },
+          "options": {
+            "temperature": 0.2  // be consistent by default
+          },
+          "variants": {
+            "programming": {
+              "temperature": 0.2
+            },
+            "creative": {
+              "temperature": 1
+            }
+          }
+        },
+        "qwen3.8-27b-q3-unsloth": {
+          "id": "qwen3.8-27b-q3-unsloth",
+          "name": "(GP-LL) qwen 3.8 27b q3 unsloth",
+          "attachment": true,
+          "modalities": {
+            "input": ["text", "image"],
+            "output": ["text"]
+          },
+          "options": {
+            "temperature": 0.2  // be consistent by default
+          },
+          "variants": {
+            "programming": {
+              "temperature": 0.2
+            },
+            "creative": {
+              "temperature": 1
+            }
+          }
+        },
+        "qwen3.6-35b-a3b-unsloth": {
+          "id": "qwen3.6-35b-a3b-ud-q4-unsloth",
+          "name": "(GP-LL) qwen 3.6 35b a3b unsloth",
+          "attachment": true,
+          "modalities": {
+            "input": ["text", "image"],
+            "output": ["text"]
+          },
+          "options": {
+            "temperature": 0.2  // be consistent by default
+          },
+          "variants": {
+            "programming": {
+              "temperature": 0.2
+            },
+            "creative": {
+              "temperature": 1
+            }
+          }
+        },
+      }
+    },
+
+    "grand-positor-ollama": {
+      "name": "Grand Positor - Ollama (GP-OL)",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://localhost:11435/v1"
+      },
+      "models": {
+        "gemma4-26b-qat": {
+          "id": "gemma4:26b-a4b-it-qat",
+          "name": "(GP-OL) Gemma4 26B qat",
+          "attachment": true,
+          "modalities": {
+            "input": ["text", "image"],
+            "output": ["text"]
+          },
+          "options": {
+            // "reasoningEffort": "medium"
+            "temperature": 0.2  // be consistent by default
+          },
+          "variants": {
+            // NOTE: variants seems to be within the default "options" section?
+            "high": {
+              "reasoningEffort": "high"
+            },
+            "medium": {
+              "reasoningEffort": "medium"
+            },
+            "low": {
+              "reasoningEffort": "low"
+            },
+            "no-reasoning": {
+              "reasoningEffort": "none"
+            },
+            "creative": {
+              "reasoningEffort": "high",
+              "temperature": 1
+            }
+          }
+        },
+        "qwen-3.8-27b-q3": {
+          "id": "smtek/Qwen3.8-27B:Q3_K_M",
+          "name": "(GP-OL) Qwen 3.8 27B q3",
+          "attachment": true,
+          "modalities": {
+            "input": ["text", "image"],
+            "output": ["text"]
+          },
+          "options": {
+            "temperature": 0.2  // be consistent by default
+          },
+          "variants": {
+            "high": {
+              "reasoningEffort": "high"
+            },
+            "medium": {
+              "reasoningEffort": "medium"
+            },
+            "low": {
+              "reasoningEffort": "low"
+            },
+            "no-reasoning": {
+              "reasoningEffort": "none"
+            },
+            "creative": {
+              "reasoningEffort": "high",
+              "temperature": 1
+            }
+          }
+        },
+        "qwen-3.6-35b-a3b": {
+          "id": "qwen3.6:35b-a3b-q4_K_M",
+          "name": "(GP-OL) <FAV> Qwen 3.6 35B A3B",
+          "attachment": true,
+          "modalities": {
+            "input": ["text", "image"],
+            "output": ["text"]
+          },
+          "options": {
+            "temperature": 0.2,
+          },
+          "variants": {
+            "high": {
+              "reasoningEffort": "high"
+            },
+            "medium": {
+              "reasoningEffort": "medium"
+            },
+            "low": {
+              "reasoningEffort": "low"
+            },
+            "no-reasoning": {
+              "reasoningEffort": "none"
+            },
+            "creative": {
+              "reasoningEffort": "high",
+              "temperature": 1
+            }
+          }
+        }
+      }
+    },
+
+    "local-lmstudio": {
+      "name": "Local LMStudio (LH-LMS)",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://localhost:1234/v1"
+      },
+      "models": {
+        "qwen-3.5-4b": {
+          "id": "lmstudio-community/Qwen3.5-4B-MLX-8bit",
+          "name": "(LH-LMS) Qwen 3.5 4B",
+          "attachment": true,
+          "modalities": {
+            "input": ["text", "image"],
+            "output": ["text"]
+          }
+        },
+        "gemma4-e2b": {
+          "id": "google/gemma-4-e2b",
+          "name": "(LH-LMS) Gemma4 E2B"
+        }
+      }
+    }
+  },
+
+
+  "mcp": {
+    "atlassian-rovo-sso": {
+      "enabled": false,
+      "type": "remote",
+      "url": "https://mcp.atlassian.com/v1/mcp",
+      "oauth": {
+        "provider": "atlassian",
+        "scopes": ["read:jira-work", "read:confluence", "search:rovo"]
+      }
+    },
+    // "docker": {
+    //   "type": "stdio",
+    //   "command": "docker",
+    //   "args": [
+    //     "mcp",
+    //     "gateway",
+    //     "run",
+    //     "--profile",
+    //     "opencode"
+    //   ]
+    // },
+    "onyx-lh": {
+      "type": "remote",
+      // "url": "http://localhost:8090/mcp",
+      "url": "http://localhost:8090",  // NOTE: hack bypassing nginx of onyx for Poc
+      "oauth": false,
+      "headers": {
+         "Authorization": "Bearer onyx_pat_kXtgTkzCVgsM0jZYAdMDiikUJz_BpLYs-hPO23dQ2jMz7AFLH6b0_LX3ArCokx_8wCbQ8aiwQtnl1FLwUznsa6mpzEnhmaIzd2X3nrFxH5HYdKD98T92BT2tta8JdqitP_hA3Y4Ns3VTrNN8rLgLhmx_0EpWG5Tn3mOSD-O7rDyRyXIZiVVXlU4cY6swe3q5lTpYQqHzStlX-crTjS-CfUl_4YDnpb-aeWrB-wk6zJEXz_ktDFrdJ9fPKhFWrOY9"
+      }
+    },
+    "unity-ai-game-dev": {
+      "type": "remote",
+      // "url": "http://localhost:8090/mcp",
+      "url": "http://localhost:24751",
+    },
+  },
+}

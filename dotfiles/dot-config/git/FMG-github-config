@@ -1,5 +1,3 @@
-[core]
-    sshCommand = ssh -i '~/.ssh/git-keys/fmg-github'
 [user]
 	name = ben-longbottom_fmgl
 	email = ben.longbottom@fortescue.com

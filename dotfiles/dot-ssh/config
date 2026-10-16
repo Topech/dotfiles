@@ -1,0 +1,24 @@
+Include enco-ssh/*
+Include personal-config/*
+
+
+
+Match host github.com exec "pwd | grep Repos/topech/"
+    identityFile ~/.ssh/git-keys/topech-github
+
+
+Match host github.com exec "pwd | grep Repos/ENCO/"
+    identityFile ~/.ssh/git-keys/topech-github
+
+
+Match host github.com exec "pwd | grep Repos/FMG/"
+    identityFile ~/.ssh/git-keys/fmg-github
+
+
+Host github.com
+    Hostname ssh.github.com
+    User git
+    Port 443
+    AddressFamily inet  # disable ipv6, only ipv4
+
+

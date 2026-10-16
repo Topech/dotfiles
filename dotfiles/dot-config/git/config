@@ -26,11 +26,14 @@
 
 # [includeIf "gitdir:~/Repos/topech/**"]
 #     path = ~/.config/git/topech-config
+[user]
+    name = Topech
+    email = benlbttm0@gmail.com
 
-[includeIf "hasconfig:remote.*.url:git@github.com:topech/*/**"]
+[includeIf "hasconfig:remote.*.url:git@github.com:Topech/**"]
     path = ~/.config/git/topech-config
 
-[includeIf "hasconfig:remote.*.url:git@github.com:enco-dev/*/**"]
+[includeIf "hasconfig:remote.*.url:git@github.com:enco-dev/**"]
     path = ~/.config/git/ENCO-github-config
 
 [includeIf "hasconfig:remote.*.url:git@github.com:fmgl-internal/**"]
