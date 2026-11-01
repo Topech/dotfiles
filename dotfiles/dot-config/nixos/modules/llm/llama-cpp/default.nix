@@ -94,6 +94,18 @@
           ctx-size = _128k_tokens;
         };
 
+        "qwen3.8-27b-q3-1gpu-mtp-unsloth" = {
+          hf-repo = "unsloth/Qwen3.8-27B-GGUF";
+          hf-file = "Qwen3.8-27B-UD-IQ3_XXS.gguf";
+          ctx-size = 60 * _1k_tokens;
+          cache-type-k = "q4_0";
+          cache-type-v = "q4_0";
+          parallel = 2;
+          split-mode = "none";
+          spec-type = "draft-mtp";
+          spec-draft-n-max = 2;
+        };
+
         "qwen3.8-27b-q4-unsloth" = {
           hf-repo = "unsloth/Qwen3.8-27B-GGUF";
           hf-file = "Qwen3.8-27B-UD-Q4_K_M.gguf";
@@ -124,6 +136,13 @@
           split-mode = "layer";
           n-gpu-layers = 25;  # 40 layers, offload all 'standard' layers to gpu
           n-cpu-moe = 15;  # offload some experts' layers to CPU. Increase if OOM (recommended 14)
+        };
+
+        # NOTE: this probs requires a PR for decision model support
+        "clef-flash-q8" = {
+          hf-repo = "ggml-org/Clef-Flash-GGUF";
+          hf-file = "Clef-Flash-Q8_0.gguf";
+          ctx-size = 20 * _1k_tokens;
         };
       };
 

@@ -17,5 +17,6 @@
     git
     htop
     jq
+    tmux
   ];
 }
