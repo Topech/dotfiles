@@ -15,8 +15,10 @@
   environment.systemPackages = with pkgs; [
     vim
     git
+    delta
     htop
     jq
     tmux
+    stow
   ];
 }
