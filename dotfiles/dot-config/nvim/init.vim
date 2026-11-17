@@ -1,4 +1,4 @@
-" colorscheme sandblast
+colorscheme sandblast
 
 set wildmenu 
 set mouse=a
