@@ -6,3 +6,5 @@ export PATH="$PATH:/Users/Ben.Longbottom/.lmstudio/bin"
 # for pipx
 export PATH="$PATH:$HOME/.local/bin"
 
+
+export EDITOR=vim

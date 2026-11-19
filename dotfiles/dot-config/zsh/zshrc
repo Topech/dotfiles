@@ -1,1 +1,8 @@
 source "$HOME/.profile"
+source "$HOME/.aliases.sh"
+
+source "$HOME/.config/zsh/path.zsh"
+source "$HOME/.config/zsh/prompt.zsh"
+source "$HOME/.config/zsh/autocomplete.zsh"
+source "$HOME/.config/zsh/keybinds.zsh"
+
