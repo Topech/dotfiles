@@ -4,7 +4,7 @@ _prompt_color() {
 	local COLOR="$1"
 	local PROMPT="$2"
 
-	echo '%F{'${COLOR}${PROMPT}'%f'
+	echo '%F{'${COLOR}'}'${PROMPT}'%f'
 }
 
 
@@ -30,7 +30,7 @@ _configure_git_info_in_prompt() {
 	zstyle ':vcs_info:git:*' formats "$(_prompt_color green '[%b(' )${_CHANGES_PROMPT}$(_prompt_color green ')]' )"
 	zstyle ':vcs_info:git:*' actionformats "$(_prompt_color yellow '[%b:%a(' )${_CHANGES_PROMPT}$(_prompt_color yellow ')]' )"
 
-    GIT_PROMPT_MSG='${vcs_info_msg_0_}'
+    GIT_PROMPT_TEMPLATE='${vcs_info_msg_0_}'
 }
 
 
@@ -49,9 +49,18 @@ generate_git_prompt() {
 	fi
 }
 
+generate_dotfiles_git_prompt() {
+    DOTFILES_GIT_PROMPT_PART=''
+    if git -C ~/Repos/topech/dotfiles status --porcelain=v2 --branch 2>/dev/null |
+        grep -Eq '^[12u?] |^# branch\.ab \+[0-9]+ -[1-9]'
+    then
+        DOTFILES_GIT_PROMPT_PART="$(_prompt_color magenta '[dotfiles!]' )"
+    fi
+}
+
 
 generate_venv_prompt() {
-	VENV_PROMPT=''
+	VENV_PROMPT_PART=''
 
 	[[ -n ${VIRTUAL_ENV-} ]] || return
 
@@ -67,7 +76,7 @@ generate_venv_prompt() {
 		fi
   	fi
 
-	VENV_PROMPT="$(_prompt_color magenta "[${name}]" )"
+	VENV_PROMPT_PART="$(_prompt_color magenta "[${name}]" )"
 }
 
 
@@ -79,14 +88,15 @@ _configure_venv_in_prompt
 
 
 precmd() { 
-	generate_git_prompt
-	generate_venv_prompt
+	generate_git_prompt;
+	generate_venv_prompt;
+    generate_dotfiles_git_prompt;
 }
 
 
 
 # PROMPT DEFINITION
 
-_USER_MACHINE_PROMPT_PART="$(_prompt_color cyan '%n' )$(_prompt_color yellow @ )$(_prompt_color cyan '%m' )"
-PROMPT='> ${VENV_PROMPT}'"${GIT_PROMPT_MSG}"' >>> '${_USER_MACHINE_PROMPT_PART}':$(_prompt_color yellow '%~' )  $(_prompt_color yellow '%#' ) '
+_USER_MACHINE_PROMPT_TEMPLATE="$(_prompt_color cyan '%n' )$(_prompt_color yellow @ )$(_prompt_color cyan '%m' )"
+PROMPT='> ${VENV_PROMPT_PART}'"${GIT_PROMPT_TEMPLATE}"' >>> '${_USER_MACHINE_PROMPT_TEMPLATE}':$(_prompt_color yellow '%~' ) ${DOTFILES_GIT_PROMPT_PART} $(_prompt_color yellow '%#' ) '
 RPROMPT='%F{yellow}%D{%H:%M}%f'
