@@ -20,6 +20,8 @@
     ../../modules/node-exporter.nix
     ../../modules/wol.nix
     ../../modules/openrgb.nix
+
+    ../../modules/build-aarch64-linux.nix
   ];
   
   wol.net_interface = "enp5s0";

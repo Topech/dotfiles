@@ -11,16 +11,22 @@
   nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # $ nix search nixpkgs wget
   environment.systemPackages = with pkgs; [
     vim
-    nvim
     git
     delta
     htop
     jq
     tmux
-    rust
+    rustc
+    cargo
     stow
+    tree-sitter
   ];
+
+  programs.neovim.enable = true;
+  programs.zsh.enable = true;
+
+  users.defaultUserShell = pkgs.zsh;
 }
