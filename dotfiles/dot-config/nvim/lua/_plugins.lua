@@ -98,6 +98,14 @@ local function _config_lsps()
     vim.lsp.enable("mason-docker-ls")
 
 
+    vim.lsp.config("mason-nix-nil", {
+        cmd = { "nil" },
+        filetypes = { "nix" },
+        root_markers = vim.list_extend({"flake.nix"}, default_root_markers),
+    })
+    vim.lsp.enable("mason-nix-nil")
+
+
     vim.api.nvim_create_autocmd('LspAttach', {
       callback = function(ev)
         local client = vim.lsp.get_client_by_id(ev.data.client_id)
@@ -128,6 +136,7 @@ local function _config_treesitter()
         'typescript',
         'html',
         'css',
+        'nix',
     }
     treesitter.setup()
     treesitter.install(treesitter_langs)
@@ -163,7 +172,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
     end
 
     if not missing then
-        local mason_lsps = { "lua-language-server", "docker-language-server" }
+        local mason_lsps = { "lua-language-server", "docker-language-server", "nil" }
         _config_mason_lsps(mason_lsps)
 	_config_lsps()
 	_config_treesitter()
