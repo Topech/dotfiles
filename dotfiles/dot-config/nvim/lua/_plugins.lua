@@ -10,6 +10,13 @@ vim.cmd [[
 ]]
 
 
+vim.filetype.add({
+    pattern = {
+        ["docker%-compose.*%.ya?ml"] = "yaml.docker-compose",
+        ["compose.*%.ya?ml"] = "yaml.docker-compose",
+    }
+})
+
 
 local function _config_mason_lsps(mason_lsps)
     local mason_ok, mason = pcall(require, "mason")
@@ -38,6 +45,7 @@ end
 
 
 local function _config_lsps()
+
     local default_root_markers = { '.venv', '.git' }
     vim.lsp.config('*', {
         root_markers = default_root_markers,
@@ -74,6 +82,21 @@ local function _config_lsps()
 	}
     })
     vim.lsp.enable("mason-lua-ls")
+
+
+    vim.lsp.config("mason-docker-ls", {
+        cmd = { "docker-language-server", "start", "--stdio" },
+        filetypes = { "dockerfile", "yaml.docker-compose" },
+        get_language_id = function(_, filetype)
+            if filetype == "yaml.docker-compose" then
+                return "dockercompose"
+            end
+            return filetype
+        end,
+        root_markers = vim.list_extend({"compose.yaml", "compose.yml", "docker-compose.yaml", "docker-compose.yml"}, default_root_markers),
+    })
+    vim.lsp.enable("mason-docker-ls")
+
 
     vim.api.nvim_create_autocmd('LspAttach', {
       callback = function(ev)
@@ -140,7 +163,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
     end
 
     if not missing then
-        local mason_lsps = { "lua-language-server" }
+        local mason_lsps = { "lua-language-server", "docker-language-server" }
         _config_mason_lsps(mason_lsps)
 	_config_lsps()
 	_config_treesitter()
