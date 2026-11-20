@@ -12,23 +12,6 @@ set ssop-=folds      " do not store folds
 " --- Import other files
 lua require("_plugins")
 
-lua << EOF
-vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
-  callback = function(ev)
-    vim.notify(ev.event .. ': ' .. ev.file)
-  end,
-})
-
--- vim.api.nvim_create_autocmd('BufReadPost', {
---   callback = function(ev)
---     vim.schedule(function()
---       vim.notify(vim.api.nvim_buf_get_name(ev.buf) .. '\n' ..
---         vim.inspect(vim.b[ev.buf].editorconfig))
---     end)
---   end,
--- })
-EOF
-
 
 " --- Visuals
 
