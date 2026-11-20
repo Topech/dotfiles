@@ -1,4 +1,5 @@
 " colorscheme sandblast
+colorscheme retrobox
 
 set wildmenu 
 set mouse=a
@@ -6,80 +7,34 @@ set mouse=a
 set ssop-=options    " do not store global and local values in a session
 set ssop-=folds      " do not store folds
 
-set foldmethod=marker
-
-"" --- File Specific settings
-syntax enable
-" filetype plugin on
-filetype on
 
 
-" -- Plugins
-call plug#begin()
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
-Plug 'ThePrimeagen/harpoon'
-Plug 'tpope/vim-surround'
-call plug#end()
-
-lua require("telescope").load_extension("harpoon")
-
-let g:surround_no_mappings = 1
-
-
-" --- LSP
-" --- default config
-lua << EOF
-local default_root_markers = { '.venv', '.git' }
-vim.lsp.config('*', {
-    root_markers = default_root_markers,
-})
-
-
-vim.lsp.config("ruff", {
-    cmd = { 'ruff', 'server' },
-    filetypes = { 'python' },
-    root_markers = vim.list_extend({"pyproject.toml"}, default_root_markers)
-})
-vim.lsp.enable("ruff")
-
-vim.lsp.config("pyright", {
-    cmd = { 'pyright-langserver', '--stdio'},
-    filetypes = { 'python' },
-    root_markers = vim.list_extend({"pyproject.toml"}, default_root_markers),
-    settings = {
-        python = {
-            analysis = {
-                -- required for go to defs/refs/decl etc.
-                diagnosticMode = "workspace",
-            },
-        },
-    }
-})
-vim.lsp.enable("pyright")
-EOF
+" --- Import other files
+lua require("_plugins")
 
 
 " --- Visuals
 
-" --- Tabs (whitespace)
-" length of an actual \t character:
-set tabstop=4
-" length to use when editing text (eg. TAB and BS keys)
-" (0 for ‘tabstop’, -1 for ‘shiftwidth’):
-set softtabstop=-1
-" length to use when shifting text (eg. <<, >> and == commands)
-" (0 for ‘tabstop’):
-set shiftwidth=0
-" round indentation to multiples of 'shiftwidth' when shifting text
-" (so that it behaves like Ctrl-D / Ctrl-T):
-set shiftround
+"  NOTE: .editorconfig should control tab spacing now
+"
+"  " --- Tabs (whitespace)
+"  " length of an actual \t character:
+"  set tabstop=4
+"  " length to use when editing text (eg. TAB and BS keys)
+"  " (0 for ‘tabstop’, -1 for ‘shiftwidth’):
+"  set softtabstop=-1
+"  " length to use when shifting text (eg. <<, >> and == commands)
+"  " (0 for ‘tabstop’):
+"  set shiftwidth=0
+"  " round indentation to multiples of 'shiftwidth' when shifting text
+"  " (so that it behaves like Ctrl-D / Ctrl-T):
+"  set shiftround
 
-" if set, only insert spaces; otherwise insert \t and complete with spaces:
-set expandtab
+"  " if set, only insert spaces; otherwise insert \t and complete with spaces:
+"  set expandtab
 
 " reproduce the indentation of the previous line:
-set autoindent
+" set autoindent
 " keep indentation produced by 'autoindent' if leaving the line blank:
 "set cpoptions+=I
 " try to be smart (increase the indenting level after ‘{’,
@@ -118,6 +73,8 @@ if has('termguicolors')
     set termguicolors
 endif
 
+
+" -- Keybinds
 
 "" --- Normal Leader Keybinds
 

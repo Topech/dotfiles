@@ -1,0 +1,3 @@
+# SHIM for actual zsh config at XDG config home
+
+source "$HOME/.config/zsh/zshrc"

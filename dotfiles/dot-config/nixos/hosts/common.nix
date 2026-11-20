@@ -14,11 +14,13 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim
+    nvim
     git
     delta
     htop
     jq
     tmux
+    rust
     stow
   ];
 }
