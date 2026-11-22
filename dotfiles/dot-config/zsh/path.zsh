@@ -1,10 +1,26 @@
 # Unity CLI
-. "/Users/Ben.Longbottom/.unity/env"
+if [ -d "$HOME/.unity/env" ] ; then
+    . "$HOME/.unity/env" 
+fi
 
-# pnpm
-export PNPM_HOME='/Users/Ben.Longbottom/Library/pnpm'
+
+export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME/bin:"*) ;;
   *) export PATH="$PNPM_HOME/bin:$PATH" ;;
 esac
-# pnpm end
+
+
+local user_bin="$HOME/bin"
+case ":$PATH:" in
+  *":$user_bin:"*) ;;
+  *) export PATH="$user_bin:$PATH" ;;
+esac
+
+
+local user_local_bin="$HOME/.local/bin"
+case ":$PATH:" in
+  *":$user_local_bin:"*) ;;
+  *) export PATH="$user_local_bin:$PATH" ;;
+esac
+
