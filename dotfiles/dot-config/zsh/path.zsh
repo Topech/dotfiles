@@ -24,3 +24,11 @@ case ":$PATH:" in
   *) export PATH="$user_local_bin:$PATH" ;;
 esac
 
+
+local snowcli_path="/Users/Ben.Longbottom/.local/share/snowflake-cli/bin:$PATH"
+if [ -d "$snowcli_path" ] ; then
+    case ":$PATH:" in
+      *":$snowcli_path:"*) ;;
+      *) export PATH="$snowcli_path:$PATH" ;;
+    esac
+fi

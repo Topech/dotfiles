@@ -92,6 +92,10 @@ nnoremap <silent> <leader>O :<C-u>call append(line(".")-1, repeat([""], v:count1
 nnoremap <silent> <leader>; q:i
 
 "  --- Window keybinds
+
+" create special buffers
+nnoremap <silent> <leader>T :<C-u>term<CR>i
+
 " window control
 nnoremap <silent> <leader>wq :<C-u>close<CR>
 nnoremap <silent> <leader>wo :<C-u>only<CR>
