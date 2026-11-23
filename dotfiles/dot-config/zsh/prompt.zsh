@@ -100,7 +100,7 @@ precmd() {
 local prompt_user_template="%(#.$(_prompt_color red '%n' ).$(_prompt_color cyan '%n' ))"
 local prompt_user_machine_template="${prompt_user_template}$(_prompt_color yellow @ )$(_prompt_color cyan '%m' )"
 local prompt_symbol_template="%(?.$(_prompt_color green '%#' ).$(_prompt_color red '%#' ))"
-local prompt_path_template="$(_prompt_color yellow '%5(~|.../%3~|%~))' )"  # NOTE: %X(~ counts X from ROOT dir, not home dir. how silly
+local prompt_path_template="$(_prompt_color yellow '%5(~|.../%3~|%~)' )"  # NOTE: %X(~ counts X from ROOT dir, not home dir. how silly
 local long_prompt_linebreak_template="$(_prompt_color 8 '%-60(l. . --|'$'\n''|-- )' )"
 PROMPT='> ${VENV_PROMPT_PART}'"${GIT_PROMPT_TEMPLATE}"' >>> '"${prompt_user_machine_template}"':'"${prompt_path_template}${long_prompt_linebreak_template}"'${DOTFILES_GIT_PROMPT_PART} '"${prompt_symbol_template}"'  '  
 
