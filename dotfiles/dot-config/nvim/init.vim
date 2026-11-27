@@ -159,3 +159,7 @@ nnoremap gsS <Plug>YSsurround
 nnoremap gSS <Plug>YSsurround
 xnoremap S   <Plug>VSurround
 xnoremap gS  <Plug>VgSurround
+
+
+inoremap <C-a>A <cmd>lua vim.lsp.completion.enable()<CR>
+inoremap <C-a>a <cmd>lua vim.lsp.completion.get()<CR>

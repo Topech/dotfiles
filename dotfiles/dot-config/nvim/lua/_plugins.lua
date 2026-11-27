@@ -67,6 +67,21 @@ local function _config_lsps()
     })
     vim.lsp.enable("uv-ruff")
 
+    vim.lsp.config("uv-pyright", {
+        cmd = { 'uv', 'run', 'pyright-langserver', "--stdio" },
+        filetypes = { 'python' },
+        root_markers = vim.list_extend({"pyproject.toml", "uv.lock"}, default_root_markers),
+        settings = {
+            python = {
+                analysis = {
+                    -- required for go to defs/refs/decl etc.
+                    diagnosticMode = "workspace",
+                },
+            },
+        }
+    })
+    vim.lsp.enable("uv-pyright")
+
 
     vim.lsp.config("mason-lua-ls", {
         cmd = { "lua-language-server" },
@@ -137,6 +152,9 @@ local function _config_treesitter()
         'html',
         'css',
         'nix',
+        'toml',
+        'json',
+        'yaml',
     }
     treesitter.setup()
     treesitter.install(treesitter_langs)
@@ -151,6 +169,12 @@ local function _config_treesitter()
     vim.opt.foldmethod = 'expr'
     vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
     vim.opt.foldlevel = 99 -- leave folds open initially
+end
+
+
+local function _config_telescope()
+    local telescope = require("telescope")
+    telescope.setup( { defaults = { preview = { treesitter = false } } } )
 end
 
 
@@ -176,8 +200,10 @@ vim.api.nvim_create_autocmd("VimEnter", {
         _config_mason_lsps(mason_lsps)
 	_config_lsps()
 	_config_treesitter()
+    _config_telescope()
+    vim.cmd("let g:surround_no_mappings = 1")
+
 	require("telescope").load_extension("harpoon")
-        vim.cmd("let g:surround_no_mappings = 1")
 
     end
   end,
